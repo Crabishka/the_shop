@@ -15,10 +15,34 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    CartRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const CartPage(),
+      );
+    },
+    FavouritesRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const FavouritesPage(),
+      );
+    },
     HomeRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const HomePage(),
+      );
+    },
+    ProfileRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const ProfilePage(),
+      );
+    },
+    WindowRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const WindowPage(),
       );
     },
     WindowTab.name: (routeData) {
@@ -52,36 +76,60 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     CatalogRoute.name: (routeData) {
+      final args = routeData.argsAs<CatalogRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const CatalogPage(),
+        child: CatalogPage(
+          args.categoryId,
+          key: args.key,
+        ),
       );
     },
-    FavouritesRoute.name: (routeData) {
+    CategoryRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const FavouritesPage(),
+        child: const CategoryPage(),
       );
     },
-    ProfileRoute.name: (routeData) {
+    SubcategoriesRoute.name: (routeData) {
+      final args = routeData.argsAs<SubcategoriesRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const ProfilePage(),
-      );
-    },
-    WindowRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const WindowPage(),
-      );
-    },
-    CartRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const CartPage(),
+        child: SubcategoriesPage(
+          key: args.key,
+          category: args.category,
+        ),
       );
     },
   };
+}
+
+/// generated route for
+/// [CartPage]
+class CartRoute extends PageRouteInfo<void> {
+  const CartRoute({List<PageRouteInfo>? children})
+      : super(
+          CartRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CartRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [FavouritesPage]
+class FavouritesRoute extends PageRouteInfo<void> {
+  const FavouritesRoute({List<PageRouteInfo>? children})
+      : super(
+          FavouritesRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'FavouritesRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
@@ -94,6 +142,34 @@ class HomeRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'HomeRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [ProfilePage]
+class ProfileRoute extends PageRouteInfo<void> {
+  const ProfileRoute({List<PageRouteInfo>? children})
+      : super(
+          ProfileRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ProfileRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [WindowPage]
+class WindowRoute extends PageRouteInfo<void> {
+  const WindowRoute({List<PageRouteInfo>? children})
+      : super(
+          WindowRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'WindowRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
@@ -170,70 +246,90 @@ class ProfileTab extends PageRouteInfo<void> {
 
 /// generated route for
 /// [CatalogPage]
-class CatalogRoute extends PageRouteInfo<void> {
-  const CatalogRoute({List<PageRouteInfo>? children})
-      : super(
+class CatalogRoute extends PageRouteInfo<CatalogRouteArgs> {
+  CatalogRoute({
+    required int categoryId,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
           CatalogRoute.name,
+          args: CatalogRouteArgs(
+            categoryId: categoryId,
+            key: key,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'CatalogRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<CatalogRouteArgs> page =
+      PageInfo<CatalogRouteArgs>(name);
+}
+
+class CatalogRouteArgs {
+  const CatalogRouteArgs({
+    required this.categoryId,
+    this.key,
+  });
+
+  final int categoryId;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'CatalogRouteArgs{categoryId: $categoryId, key: $key}';
+  }
 }
 
 /// generated route for
-/// [FavouritesPage]
-class FavouritesRoute extends PageRouteInfo<void> {
-  const FavouritesRoute({List<PageRouteInfo>? children})
+/// [CategoryPage]
+class CategoryRoute extends PageRouteInfo<void> {
+  const CategoryRoute({List<PageRouteInfo>? children})
       : super(
-          FavouritesRoute.name,
+          CategoryRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'FavouritesRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [ProfilePage]
-class ProfileRoute extends PageRouteInfo<void> {
-  const ProfileRoute({List<PageRouteInfo>? children})
-      : super(
-          ProfileRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'ProfileRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [WindowPage]
-class WindowRoute extends PageRouteInfo<void> {
-  const WindowRoute({List<PageRouteInfo>? children})
-      : super(
-          WindowRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'WindowRoute';
+  static const String name = 'CategoryRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
-/// [CartPage]
-class CartRoute extends PageRouteInfo<void> {
-  const CartRoute({List<PageRouteInfo>? children})
-      : super(
-          CartRoute.name,
+/// [SubcategoriesPage]
+class SubcategoriesRoute extends PageRouteInfo<SubcategoriesRouteArgs> {
+  SubcategoriesRoute({
+    Key? key,
+    required Category category,
+    List<PageRouteInfo>? children,
+  }) : super(
+          SubcategoriesRoute.name,
+          args: SubcategoriesRouteArgs(
+            key: key,
+            category: category,
+          ),
           initialChildren: children,
         );
 
-  static const String name = 'CartRoute';
+  static const String name = 'SubcategoriesRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<SubcategoriesRouteArgs> page =
+      PageInfo<SubcategoriesRouteArgs>(name);
+}
+
+class SubcategoriesRouteArgs {
+  const SubcategoriesRouteArgs({
+    this.key,
+    required this.category,
+  });
+
+  final Key? key;
+
+  final Category category;
+
+  @override
+  String toString() {
+    return 'SubcategoriesRouteArgs{key: $key, category: $category}';
+  }
 }

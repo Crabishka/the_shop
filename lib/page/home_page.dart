@@ -11,21 +11,18 @@ class HomePage extends StatelessWidget {
     return AutoTabsRouter(
       routes: const [
         WindowRoute(),
-        CatalogRoute(),
+        CategoryRoute(),
         CartRoute(),
         FavouritesRoute(),
         ProfileRoute(),
       ],
-      transitionBuilder: (context, child, animation) {
-        return FadeTransition(opacity: animation, child: child);
-      },
+
       builder: (context, child) {
         final tabsRouter = AutoTabsRouter.of(context);
         return Scaffold(
           body: child,
           bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
-            selectedItemColor: Colors.black,
             currentIndex: tabsRouter.activeIndex,
             onTap: (index) {
               tabsRouter.setActiveIndex(index);

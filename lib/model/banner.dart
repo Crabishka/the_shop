@@ -6,16 +6,17 @@ part 'banner.freezed.dart';
 part 'banner.g.dart';
 
 @freezed
-class Banner with _$Banner {
-  const factory Banner({
+class WindowBanner with _$WindowBanner {
+  const factory WindowBanner({
     required int id,
     required String text,
     @JsonKey(name: 'image_url')
     required String imageUrl,
     required String link,
+    /// can be imageBanner, titleBanner, markdownBanner, sliderBanner, buttonBanner
     required String type,
     required List<Picture> images,
   }) = _Banner;
 
-  factory Banner.fromJson(Map<String, dynamic> json) => _$BannerFromJson(json);
+  factory WindowBanner.fromJson(Map<String, dynamic> json) => _$WindowBannerFromJson(json);
 }

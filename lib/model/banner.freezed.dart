@@ -14,29 +14,33 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Banner _$BannerFromJson(Map<String, dynamic> json) {
+WindowBanner _$WindowBannerFromJson(Map<String, dynamic> json) {
   return _Banner.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Banner {
+mixin _$WindowBanner {
   int get id => throw _privateConstructorUsedError;
   String get text => throw _privateConstructorUsedError;
   @JsonKey(name: 'image_url')
   String get imageUrl => throw _privateConstructorUsedError;
   String get link => throw _privateConstructorUsedError;
+
+  /// can be imageBanner, titleBanner, markdownBanner, sliderBanner, buttonBanner
   String get type => throw _privateConstructorUsedError;
   List<Picture> get images => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $BannerCopyWith<Banner> get copyWith => throw _privateConstructorUsedError;
+  $WindowBannerCopyWith<WindowBanner> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $BannerCopyWith<$Res> {
-  factory $BannerCopyWith(Banner value, $Res Function(Banner) then) =
-      _$BannerCopyWithImpl<$Res, Banner>;
+abstract class $WindowBannerCopyWith<$Res> {
+  factory $WindowBannerCopyWith(
+          WindowBanner value, $Res Function(WindowBanner) then) =
+      _$WindowBannerCopyWithImpl<$Res, WindowBanner>;
   @useResult
   $Res call(
       {int id,
@@ -48,9 +52,9 @@ abstract class $BannerCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$BannerCopyWithImpl<$Res, $Val extends Banner>
-    implements $BannerCopyWith<$Res> {
-  _$BannerCopyWithImpl(this._value, this._then);
+class _$WindowBannerCopyWithImpl<$Res, $Val extends WindowBanner>
+    implements $WindowBannerCopyWith<$Res> {
+  _$WindowBannerCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -97,7 +101,7 @@ class _$BannerCopyWithImpl<$Res, $Val extends Banner>
 }
 
 /// @nodoc
-abstract class _$$_BannerCopyWith<$Res> implements $BannerCopyWith<$Res> {
+abstract class _$$_BannerCopyWith<$Res> implements $WindowBannerCopyWith<$Res> {
   factory _$$_BannerCopyWith(_$_Banner value, $Res Function(_$_Banner) then) =
       __$$_BannerCopyWithImpl<$Res>;
   @override
@@ -113,7 +117,7 @@ abstract class _$$_BannerCopyWith<$Res> implements $BannerCopyWith<$Res> {
 
 /// @nodoc
 class __$$_BannerCopyWithImpl<$Res>
-    extends _$BannerCopyWithImpl<$Res, _$_Banner>
+    extends _$WindowBannerCopyWithImpl<$Res, _$_Banner>
     implements _$$_BannerCopyWith<$Res> {
   __$$_BannerCopyWithImpl(_$_Banner _value, $Res Function(_$_Banner) _then)
       : super(_value, _then);
@@ -181,6 +185,8 @@ class _$_Banner implements _Banner {
   final String imageUrl;
   @override
   final String link;
+
+  /// can be imageBanner, titleBanner, markdownBanner, sliderBanner, buttonBanner
   @override
   final String type;
   final List<Picture> _images;
@@ -193,7 +199,7 @@ class _$_Banner implements _Banner {
 
   @override
   String toString() {
-    return 'Banner(id: $id, text: $text, imageUrl: $imageUrl, link: $link, type: $type, images: $images)';
+    return 'WindowBanner(id: $id, text: $text, imageUrl: $imageUrl, link: $link, type: $type, images: $images)';
   }
 
   @override
@@ -229,7 +235,7 @@ class _$_Banner implements _Banner {
   }
 }
 
-abstract class _Banner implements Banner {
+abstract class _Banner implements WindowBanner {
   const factory _Banner(
       {required final int id,
       required final String text,
@@ -250,6 +256,8 @@ abstract class _Banner implements Banner {
   @override
   String get link;
   @override
+
+  /// can be imageBanner, titleBanner, markdownBanner, sliderBanner, buttonBanner
   String get type;
   @override
   List<Picture> get images;

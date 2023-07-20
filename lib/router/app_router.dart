@@ -1,9 +1,13 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
+import 'package:the_shop_app/model/category.dart';
 import 'package:the_shop_app/page/cart_page.dart';
-import 'package:the_shop_app/page/catalog_page.dart';
+import 'package:the_shop_app/page/catalog/catalog_page.dart';
+import 'package:the_shop_app/page/catalog/category_page.dart';
 import 'package:the_shop_app/page/favourities_page.dart';
 import 'package:the_shop_app/page/home_page.dart';
 import 'package:the_shop_app/page/profile_page.dart';
+import 'package:the_shop_app/page/catalog/subcategories_page.dart';
 import 'package:the_shop_app/page/window_page.dart';
 
 part 'app_router.gr.dart';
@@ -13,6 +17,7 @@ class AppRouter extends _$AppRouter {
   @override
   List<AutoRoute> get routes => [
         AutoRoute(
+          path: '/',
           page: HomeRoute.page,
           initial: true,
           children: [
@@ -25,7 +30,8 @@ class AppRouter extends _$AppRouter {
             AutoRoute(
               page: CatalogTab.page,
               children: [
-                AutoRoute(page: CatalogRoute.page),
+                AutoRoute(page: CategoryRoute.page),
+                AutoRoute(page: SubcategoriesRoute.page),
               ],
             ),
             AutoRoute(
