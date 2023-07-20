@@ -22,7 +22,7 @@ PageableDto<T> _$PageableDtoFromJson<T>(
 /// @nodoc
 mixin _$PageableDto<T> {
   int get count => throw _privateConstructorUsedError;
-  int get pages => throw _privateConstructorUsedError;
+  int? get pages => throw _privateConstructorUsedError;
   String? get next => throw _privateConstructorUsedError;
   String? get prev => throw _privateConstructorUsedError;
   List<T> get results => throw _privateConstructorUsedError;
@@ -41,7 +41,7 @@ abstract class $PageableDtoCopyWith<T, $Res> {
       _$PageableDtoCopyWithImpl<T, $Res, PageableDto<T>>;
   @useResult
   $Res call(
-      {int count, int pages, String? next, String? prev, List<T> results});
+      {int count, int? pages, String? next, String? prev, List<T> results});
 }
 
 /// @nodoc
@@ -58,7 +58,7 @@ class _$PageableDtoCopyWithImpl<T, $Res, $Val extends PageableDto<T>>
   @override
   $Res call({
     Object? count = null,
-    Object? pages = null,
+    Object? pages = freezed,
     Object? next = freezed,
     Object? prev = freezed,
     Object? results = null,
@@ -68,10 +68,10 @@ class _$PageableDtoCopyWithImpl<T, $Res, $Val extends PageableDto<T>>
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
-      pages: null == pages
+      pages: freezed == pages
           ? _value.pages
           : pages // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       next: freezed == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
@@ -97,7 +97,7 @@ abstract class _$$_PageableDtoCopyWith<T, $Res>
   @override
   @useResult
   $Res call(
-      {int count, int pages, String? next, String? prev, List<T> results});
+      {int count, int? pages, String? next, String? prev, List<T> results});
 }
 
 /// @nodoc
@@ -112,7 +112,7 @@ class __$$_PageableDtoCopyWithImpl<T, $Res>
   @override
   $Res call({
     Object? count = null,
-    Object? pages = null,
+    Object? pages = freezed,
     Object? next = freezed,
     Object? prev = freezed,
     Object? results = null,
@@ -122,10 +122,10 @@ class __$$_PageableDtoCopyWithImpl<T, $Res>
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
-      pages: null == pages
+      pages: freezed == pages
           ? _value.pages
           : pages // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       next: freezed == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
@@ -160,7 +160,7 @@ class _$_PageableDto<T> implements _PageableDto<T> {
   @override
   final int count;
   @override
-  final int pages;
+  final int? pages;
   @override
   final String? next;
   @override
@@ -210,7 +210,7 @@ class _$_PageableDto<T> implements _PageableDto<T> {
 abstract class _PageableDto<T> implements PageableDto<T> {
   const factory _PageableDto(
       {required final int count,
-      required final int pages,
+      required final int? pages,
       required final String? next,
       required final String? prev,
       required final List<T> results}) = _$_PageableDto<T>;
@@ -222,7 +222,7 @@ abstract class _PageableDto<T> implements PageableDto<T> {
   @override
   int get count;
   @override
-  int get pages;
+  int? get pages;
   @override
   String? get next;
   @override

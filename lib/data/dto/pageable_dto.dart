@@ -11,7 +11,7 @@ part 'pageable_dto.g.dart';
 class PageableDto<T> with _$PageableDto<T> {
   const factory PageableDto({
     required int count,
-    required int pages,
+    required int? pages,
     required String? next,
     required String? prev,
     required List<T> results,

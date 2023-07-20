@@ -10,8 +10,7 @@ class Category with _$Category {
     required int id,
     required String name,
     required String picture,
-    @JsonKey(name: 'parent_id')
-    required int? parentId,
+    @JsonKey(name: 'parent_id') required int? parentId,
     required List<Category>? subcategories,
   }) = _Category;
 

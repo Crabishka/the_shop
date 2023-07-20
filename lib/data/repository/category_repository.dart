@@ -1,4 +1,3 @@
-
 import 'package:the_shop_app/data/client/category_client.dart';
 import 'package:the_shop_app/model/category.dart';
 

@@ -12,7 +12,7 @@ _$_PageableDto<T> _$$_PageableDtoFromJson<T>(
 ) =>
     _$_PageableDto<T>(
       count: json['count'] as int,
-      pages: json['pages'] as int,
+      pages: json['pages'] as int?,
       next: json['next'] as String?,
       prev: json['prev'] as String?,
       results: (json['results'] as List<dynamic>).map(fromJsonT).toList(),

@@ -16,7 +16,6 @@ class HomePage extends StatelessWidget {
         FavouritesRoute(),
         ProfileRoute(),
       ],
-
       builder: (context, child) {
         final tabsRouter = AutoTabsRouter.of(context);
         return Scaffold(

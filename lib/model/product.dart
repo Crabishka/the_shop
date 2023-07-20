@@ -8,11 +8,19 @@ part 'product.freezed.dart';
 class Product with _$Product {
   const factory Product({
     required int id,
-  }) = _Product;
+    required String price,
+    required double discount,
+    @JsonKey(name: 'old_price')
+    String? oldPrice,
+    required String picture,
+    // TODO add badges
+    required double? rating,
+    @JsonKey(name: 'reviews_count')
+    required int reviewCount,
+    required String brand,
 
+  }) = _Product;
 
   factory Product.fromJson(Map<String, dynamic> json) =>
       _$ProductFromJson(json);
 }
-
-
