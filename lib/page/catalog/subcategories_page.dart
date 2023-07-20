@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:the_shop_app/model/category.dart';
 import 'package:the_shop_app/page/component/farm_add_bar.dart';
 import 'package:the_shop_app/page/component/grey_divider.dart';
+import 'package:the_shop_app/page/component/subcategory_card.dart';
 
 @RoutePage()
 class SubcategoriesPage extends ConsumerWidget {
@@ -30,48 +31,6 @@ class SubcategoriesPage extends ConsumerWidget {
         separatorBuilder: (BuildContext context, int index) {
           return const GreyDivider();
         },
-      ),
-    );
-  }
-}
-
-class SubcategoryCard extends StatelessWidget {
-  const SubcategoryCard({
-    super.key,
-    required this.category,
-  });
-
-  final Category category;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {},
-      child: Row(
-        children: [
-          Image.network(
-            category.picture,
-            width: 32,
-            height: 32,
-            fit: BoxFit.fill,
-          ),
-          const SizedBox(
-            width: 24,
-          ),
-          Expanded(
-            child: Text(
-              category.name,
-              maxLines: 2,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          const SizedBox(
-            width: 24,
-          ),
-          const Icon(Icons.navigate_next)
-        ],
       ),
     );
   }

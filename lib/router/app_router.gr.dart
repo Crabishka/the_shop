@@ -75,16 +75,6 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const ProfileTabPage(),
       );
     },
-    CatalogRoute.name: (routeData) {
-      final args = routeData.argsAs<CatalogRouteArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: CatalogPage(
-          args.categoryId,
-          key: args.key,
-        ),
-      );
-    },
     CategoryRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -98,6 +88,16 @@ abstract class _$AppRouter extends RootStackRouter {
         child: SubcategoriesPage(
           key: args.key,
           category: args.category,
+        ),
+      );
+    },
+    CatalogRoute.name: (routeData) {
+      final args = routeData.argsAs<CatalogRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: CatalogPage(
+          categoryId: args.categoryId,
+          key: args.key,
         ),
       );
     },
@@ -245,44 +245,6 @@ class ProfileTab extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [CatalogPage]
-class CatalogRoute extends PageRouteInfo<CatalogRouteArgs> {
-  CatalogRoute({
-    required int categoryId,
-    Key? key,
-    List<PageRouteInfo>? children,
-  }) : super(
-          CatalogRoute.name,
-          args: CatalogRouteArgs(
-            categoryId: categoryId,
-            key: key,
-          ),
-          initialChildren: children,
-        );
-
-  static const String name = 'CatalogRoute';
-
-  static const PageInfo<CatalogRouteArgs> page =
-      PageInfo<CatalogRouteArgs>(name);
-}
-
-class CatalogRouteArgs {
-  const CatalogRouteArgs({
-    required this.categoryId,
-    this.key,
-  });
-
-  final int categoryId;
-
-  final Key? key;
-
-  @override
-  String toString() {
-    return 'CatalogRouteArgs{categoryId: $categoryId, key: $key}';
-  }
-}
-
-/// generated route for
 /// [CategoryPage]
 class CategoryRoute extends PageRouteInfo<void> {
   const CategoryRoute({List<PageRouteInfo>? children})
@@ -331,5 +293,43 @@ class SubcategoriesRouteArgs {
   @override
   String toString() {
     return 'SubcategoriesRouteArgs{key: $key, category: $category}';
+  }
+}
+
+/// generated route for
+/// [CatalogPage]
+class CatalogRoute extends PageRouteInfo<CatalogRouteArgs> {
+  CatalogRoute({
+    required int categoryId,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          CatalogRoute.name,
+          args: CatalogRouteArgs(
+            categoryId: categoryId,
+            key: key,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'CatalogRoute';
+
+  static const PageInfo<CatalogRouteArgs> page =
+      PageInfo<CatalogRouteArgs>(name);
+}
+
+class CatalogRouteArgs {
+  const CatalogRouteArgs({
+    required this.categoryId,
+    this.key,
+  });
+
+  final int categoryId;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'CatalogRouteArgs{categoryId: $categoryId, key: $key}';
   }
 }
