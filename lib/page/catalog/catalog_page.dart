@@ -1,10 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:the_shop_app/data/dto/pageable_dto.dart';
-import 'package:the_shop_app/model/product.dart';
+import 'package:the_shop_app/data/dto/request/filter_product_dto.dart';
 import 'package:the_shop_app/page/component/farm_add_bar.dart';
-import 'package:the_shop_app/page/component/pagination_list.dart';
 import 'package:the_shop_app/provider/di_providers.dart';
 
 @RoutePage()
@@ -16,7 +14,7 @@ class CatalogPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final data = ref
         .read(productRepositoryProvider)
-        .getCategories(categoryIds: [categoryId]);
+        .getCategories(dto: FilterProductDto(categoryIds: [categoryId]));
     return Scaffold(
       appBar: const FarmAppBar(
         title: 'Каталог',
@@ -36,7 +34,7 @@ class CatalogPage extends ConsumerWidget {
           return GridView.builder(
             itemCount: products.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                 crossAxisCount: 2),
+                crossAxisCount: 2),
             itemBuilder: (context, index) {
               print(products[index].picture);
               return Image.network(products[index].picture);

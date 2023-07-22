@@ -10,15 +10,12 @@ class Product with _$Product {
     required int id,
     required String price,
     required double discount,
-    @JsonKey(name: 'old_price')
-    String? oldPrice,
+    @JsonKey(name: 'old_price') String? oldPrice,
     required String picture,
     // TODO add badges
     required double? rating,
-    @JsonKey(name: 'reviews_count')
-    required int reviewCount,
+    @JsonKey(name: 'reviews_count') required int reviewCount,
     required String brand,
-
   }) = _Product;
 
   factory Product.fromJson(Map<String, dynamic> json) =>

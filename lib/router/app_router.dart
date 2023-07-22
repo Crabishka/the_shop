@@ -6,7 +6,7 @@ import 'package:the_shop_app/page/catalog/catalog_page.dart';
 import 'package:the_shop_app/page/catalog/category_page.dart';
 import 'package:the_shop_app/page/favourities_page.dart';
 import 'package:the_shop_app/page/home_page.dart';
-import 'package:the_shop_app/page/profile_page.dart';
+import 'package:the_shop_app/page/profile/profile_page.dart';
 import 'package:the_shop_app/page/catalog/subcategories_page.dart';
 import 'package:the_shop_app/page/window_page.dart';
 

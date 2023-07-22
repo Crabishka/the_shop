@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'pageable_dto.freezed.dart';
-
 part 'pageable_dto.g.dart';
+
+part 'pageable_dto.freezed.dart';
 
 @Freezed(
   fromJson: true,

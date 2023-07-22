@@ -20,9 +20,14 @@ FilterProductDto _$FilterProductDtoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$FilterProductDto {
-// String? brand,
+  String? get brand => throw _privateConstructorUsedError;
   @JsonKey(name: 'category_ids')
   List<int>? get categoryIds => throw _privateConstructorUsedError;
+  @JsonKey(name: 'product_ids')
+  List<int>? get productIds => throw _privateConstructorUsedError;
+  String? get search => throw _privateConstructorUsedError;
+  @JsonKey(name: 'sort_by')
+  String? get sortBy => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +41,12 @@ abstract class $FilterProductDtoCopyWith<$Res> {
           FilterProductDto value, $Res Function(FilterProductDto) then) =
       _$FilterProductDtoCopyWithImpl<$Res, FilterProductDto>;
   @useResult
-  $Res call({@JsonKey(name: 'category_ids') List<int>? categoryIds});
+  $Res call(
+      {String? brand,
+      @JsonKey(name: 'category_ids') List<int>? categoryIds,
+      @JsonKey(name: 'product_ids') List<int>? productIds,
+      String? search,
+      @JsonKey(name: 'sort_by') String? sortBy});
 }
 
 /// @nodoc
@@ -52,13 +62,33 @@ class _$FilterProductDtoCopyWithImpl<$Res, $Val extends FilterProductDto>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? brand = freezed,
     Object? categoryIds = freezed,
+    Object? productIds = freezed,
+    Object? search = freezed,
+    Object? sortBy = freezed,
   }) {
     return _then(_value.copyWith(
+      brand: freezed == brand
+          ? _value.brand
+          : brand // ignore: cast_nullable_to_non_nullable
+              as String?,
       categoryIds: freezed == categoryIds
           ? _value.categoryIds
           : categoryIds // ignore: cast_nullable_to_non_nullable
               as List<int>?,
+      productIds: freezed == productIds
+          ? _value.productIds
+          : productIds // ignore: cast_nullable_to_non_nullable
+              as List<int>?,
+      search: freezed == search
+          ? _value.search
+          : search // ignore: cast_nullable_to_non_nullable
+              as String?,
+      sortBy: freezed == sortBy
+          ? _value.sortBy
+          : sortBy // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -71,7 +101,12 @@ abstract class _$$_FilterProductDtoCopyWith<$Res>
       __$$_FilterProductDtoCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({@JsonKey(name: 'category_ids') List<int>? categoryIds});
+  $Res call(
+      {String? brand,
+      @JsonKey(name: 'category_ids') List<int>? categoryIds,
+      @JsonKey(name: 'product_ids') List<int>? productIds,
+      String? search,
+      @JsonKey(name: 'sort_by') String? sortBy});
 }
 
 /// @nodoc
@@ -85,30 +120,56 @@ class __$$_FilterProductDtoCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? brand = freezed,
     Object? categoryIds = freezed,
+    Object? productIds = freezed,
+    Object? search = freezed,
+    Object? sortBy = freezed,
   }) {
     return _then(_$_FilterProductDto(
+      brand: freezed == brand
+          ? _value.brand
+          : brand // ignore: cast_nullable_to_non_nullable
+              as String?,
       categoryIds: freezed == categoryIds
           ? _value._categoryIds
           : categoryIds // ignore: cast_nullable_to_non_nullable
               as List<int>?,
+      productIds: freezed == productIds
+          ? _value._productIds
+          : productIds // ignore: cast_nullable_to_non_nullable
+              as List<int>?,
+      search: freezed == search
+          ? _value.search
+          : search // ignore: cast_nullable_to_non_nullable
+              as String?,
+      sortBy: freezed == sortBy
+          ? _value.sortBy
+          : sortBy // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
 class _$_FilterProductDto implements _FilterProductDto {
   const _$_FilterProductDto(
-      {@JsonKey(name: 'category_ids') final List<int>? categoryIds})
-      : _categoryIds = categoryIds;
+      {this.brand,
+      @JsonKey(name: 'category_ids') final List<int>? categoryIds,
+      @JsonKey(name: 'product_ids') final List<int>? productIds,
+      this.search,
+      @JsonKey(name: 'sort_by') this.sortBy})
+      : _categoryIds = categoryIds,
+        _productIds = productIds;
 
   factory _$_FilterProductDto.fromJson(Map<String, dynamic> json) =>
       _$$_FilterProductDtoFromJson(json);
 
-// String? brand,
+  @override
+  final String? brand;
   final List<int>? _categoryIds;
-// String? brand,
   @override
   @JsonKey(name: 'category_ids')
   List<int>? get categoryIds {
@@ -119,9 +180,26 @@ class _$_FilterProductDto implements _FilterProductDto {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<int>? _productIds;
+  @override
+  @JsonKey(name: 'product_ids')
+  List<int>? get productIds {
+    final value = _productIds;
+    if (value == null) return null;
+    if (_productIds is EqualUnmodifiableListView) return _productIds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  final String? search;
+  @override
+  @JsonKey(name: 'sort_by')
+  final String? sortBy;
+
   @override
   String toString() {
-    return 'FilterProductDto(categoryIds: $categoryIds)';
+    return 'FilterProductDto(brand: $brand, categoryIds: $categoryIds, productIds: $productIds, search: $search, sortBy: $sortBy)';
   }
 
   @override
@@ -129,14 +207,24 @@ class _$_FilterProductDto implements _FilterProductDto {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_FilterProductDto &&
+            (identical(other.brand, brand) || other.brand == brand) &&
             const DeepCollectionEquality()
-                .equals(other._categoryIds, _categoryIds));
+                .equals(other._categoryIds, _categoryIds) &&
+            const DeepCollectionEquality()
+                .equals(other._productIds, _productIds) &&
+            (identical(other.search, search) || other.search == search) &&
+            (identical(other.sortBy, sortBy) || other.sortBy == sortBy));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_categoryIds));
+      runtimeType,
+      brand,
+      const DeepCollectionEquality().hash(_categoryIds),
+      const DeepCollectionEquality().hash(_productIds),
+      search,
+      sortBy);
 
   @JsonKey(ignore: true)
   @override
@@ -154,15 +242,28 @@ class _$_FilterProductDto implements _FilterProductDto {
 
 abstract class _FilterProductDto implements FilterProductDto {
   const factory _FilterProductDto(
-          {@JsonKey(name: 'category_ids') final List<int>? categoryIds}) =
-      _$_FilterProductDto;
+      {final String? brand,
+      @JsonKey(name: 'category_ids') final List<int>? categoryIds,
+      @JsonKey(name: 'product_ids') final List<int>? productIds,
+      final String? search,
+      @JsonKey(name: 'sort_by') final String? sortBy}) = _$_FilterProductDto;
 
   factory _FilterProductDto.fromJson(Map<String, dynamic> json) =
       _$_FilterProductDto.fromJson;
 
-  @override // String? brand,
+  @override
+  String? get brand;
+  @override
   @JsonKey(name: 'category_ids')
   List<int>? get categoryIds;
+  @override
+  @JsonKey(name: 'product_ids')
+  List<int>? get productIds;
+  @override
+  String? get search;
+  @override
+  @JsonKey(name: 'sort_by')
+  String? get sortBy;
   @override
   @JsonKey(ignore: true)
   _$$_FilterProductDtoCopyWith<_$_FilterProductDto> get copyWith =>

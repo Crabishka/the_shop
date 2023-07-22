@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:the_shop_app/data/dto/pageable_dto.dart';
+import 'package:the_shop_app/data/dto/response/pageable_dto.dart';
 
 typedef FetchData<T> = Future<PageableDto<T>> Function(
     int, Map<String, String>);

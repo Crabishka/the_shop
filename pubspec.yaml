@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.2 <4.0.0'
+  sdk: '>=3.0.0 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -36,12 +36,12 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   freezed: 2.4.1
-  freezed_annotation: ^2.4.1
-  json_annotation: ^4.8.1
+  freezed_annotation: ^2.2.0
+  json_annotation: ^4.8.0
+  retrofit: ^4.0.1
   google_fonts: any
   dio: ^5.2.1+1
   http: ^1.1.0
-  retrofit: ^4.0.1
   auto_route: 7.7.1
   flutter_riverpod: ^2.3.6
   cached_network_image: ^3.2.3
@@ -59,9 +59,9 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
-  build_runner: ^2.4.6
-  json_serializable: ^6.7.1
-  retrofit_generator: ^7.0.8
+  build_runner: ^2.3.3
+  json_serializable: ^6.6.1
+  retrofit_generator: ^6.0.0+3
   auto_route_generator: any
 
 # For information on the generic Dart part of this file, see the

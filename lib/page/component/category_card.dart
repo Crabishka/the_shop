@@ -21,6 +21,16 @@ class CategoryCard extends StatelessWidget {
         children: [
           Image.network(
             category.picture,
+            loadingBuilder: (context, child, loadingProgress) {
+              if (loadingProgress == null) return child;
+              return const SizedBox(
+                width: 100,
+                height: 100,
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            },
             width: 100,
             height: 100,
             fit: BoxFit.fill,
