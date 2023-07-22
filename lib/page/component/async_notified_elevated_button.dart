@@ -6,13 +6,13 @@ class AsyncNotifiedElevatedButton extends StatefulWidget {
   const AsyncNotifiedElevatedButton({
     super.key,
     required this.isActiveNotifier,
-    required this.callback, required this.text,
+    required this.callback,
+    required this.text,
   });
 
   final ValueNotifier<bool> isActiveNotifier;
   final FutureVoidCallBack callback;
   final String text;
-
 
   @override
   State<AsyncNotifiedElevatedButton> createState() =>
@@ -30,18 +30,15 @@ class _AsyncNotifiedElevatedButtonState
       builder: (BuildContext context, bool value, Widget? child) {
         return ElevatedButton(
             onPressed: value && active ? _doCallBack : null,
-            child:  Text(
+            child: Text(
               widget.text,
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12,
-                  letterSpacing: 1.44),
+
             ));
       },
     );
   }
 
-  void _doCallBack() async {
+  Future<void> _doCallBack() async {
     setState(() {
       active = false;
     });

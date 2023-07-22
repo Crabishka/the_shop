@@ -36,7 +36,6 @@ class CatalogPage extends ConsumerWidget {
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2),
             itemBuilder: (context, index) {
-              print(products[index].picture);
               return Image.network(products[index].picture);
             },
           );

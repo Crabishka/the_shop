@@ -2,7 +2,7 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/http.dart';
 import 'package:the_shop_app/data/dto/request/email_auth_part1_dto.dart';
 import 'package:the_shop_app/data/dto/request/email_auth_part2_dto.dart';
-import 'package:the_shop_app/data/dto/response/error_dto.dart';
+import 'package:the_shop_app/data/dto/request/reg_user_dto.dart';
 import 'package:the_shop_app/data/dto/response/token_dto.dart';
 
 part 'profile_client.g.dart';
@@ -21,4 +21,9 @@ abstract class ProfileClient {
   @POST('/auth/email/part2')
   @Headers({'Content-Type': 'application/json'})
   Future<TokenDto> authEmailPart2(@Body() EmailAuthPart2Dto dto);
+
+  @POST('/auth/register')
+  @Headers({'Content-Type': 'application/json'})
+  Future<void> authRegister(@Body() RegUserDto dto);
+
 }

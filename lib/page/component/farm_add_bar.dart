@@ -19,7 +19,13 @@ class FarmAppBar extends StatelessWidget implements PreferredSizeWidget {
           AutoRouter.of(context).pop();
         },
       ),
-      title: Text(title),
+      title: Text(
+        title,
+        style: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
     );
   }
 

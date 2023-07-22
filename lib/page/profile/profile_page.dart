@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:the_shop_app/page/component/async_notified_elevated_button.dart';
 import 'package:the_shop_app/page/component/farm_add_bar.dart';
-import 'package:the_shop_app/page/component/input_text_field.dart';
+import 'package:the_shop_app/page/component/profile_component/input_text_field.dart';
 import 'package:the_shop_app/provider/di_providers.dart';
 import 'package:the_shop_app/router/app_router.dart';
 
@@ -42,6 +42,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     isActiveNotifier.removeListener(_checkEmail);
     _controller.removeListener(_validateField);
     _controller.dispose();
+    isActiveNotifier.dispose();
     super.dispose();
   }
 
@@ -63,8 +64,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
               height: 16,
             ),
             InputTextField(
-                textHint: 'exmple@yandex.ru',
-                controller: _controller),
+                textHint: 'exmple@yandex.ru', controller: _controller),
             const SizedBox(
               height: 48,
             ),
@@ -80,7 +80,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         .firstAuthStep(email: _controller.text);
                     if (!mounted) return;
                     AutoRouter.of(context).navigate(
-                      CodeValidationRoute(),
+                      CodeValidationRoute(email: _controller.text),
                     );
                   } catch (e) {
                     if (e == '451') {

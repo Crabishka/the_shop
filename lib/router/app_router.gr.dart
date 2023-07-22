@@ -59,6 +59,32 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const HomePage(),
       );
     },
+    CodeValidationRoute.name: (routeData) {
+      final args = routeData.argsAs<CodeValidationRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: CodeValidationPage(
+          key: args.key,
+          email: args.email,
+        ),
+      );
+    },
+    ProfileRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const ProfilePage(),
+      );
+    },
+    RegistrationRoute.name: (routeData) {
+      final args = routeData.argsAs<RegistrationRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: RegistrationPage(
+          args.email,
+          key: args.key,
+        ),
+      );
+    },
     WindowRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -93,28 +119,6 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const ProfileTabPage(),
-      );
-    },
-    CodeValidationRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const CodeValidationPage(),
-      );
-    },
-    ProfileRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const ProfilePage(),
-      );
-    },
-    RegistrationRoute.name: (routeData) {
-      final args = routeData.argsAs<RegistrationRouteArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: RegistrationPage(
-          args.email,
-          key: args.key,
-        ),
       );
     },
   };
@@ -253,6 +257,96 @@ class HomeRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [CodeValidationPage]
+class CodeValidationRoute extends PageRouteInfo<CodeValidationRouteArgs> {
+  CodeValidationRoute({
+    Key? key,
+    required String email,
+    List<PageRouteInfo>? children,
+  }) : super(
+          CodeValidationRoute.name,
+          args: CodeValidationRouteArgs(
+            key: key,
+            email: email,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'CodeValidationRoute';
+
+  static const PageInfo<CodeValidationRouteArgs> page =
+      PageInfo<CodeValidationRouteArgs>(name);
+}
+
+class CodeValidationRouteArgs {
+  const CodeValidationRouteArgs({
+    this.key,
+    required this.email,
+  });
+
+  final Key? key;
+
+  final String email;
+
+  @override
+  String toString() {
+    return 'CodeValidationRouteArgs{key: $key, email: $email}';
+  }
+}
+
+/// generated route for
+/// [ProfilePage]
+class ProfileRoute extends PageRouteInfo<void> {
+  const ProfileRoute({List<PageRouteInfo>? children})
+      : super(
+          ProfileRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ProfileRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [RegistrationPage]
+class RegistrationRoute extends PageRouteInfo<RegistrationRouteArgs> {
+  RegistrationRoute({
+    required String email,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          RegistrationRoute.name,
+          args: RegistrationRouteArgs(
+            email: email,
+            key: key,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'RegistrationRoute';
+
+  static const PageInfo<RegistrationRouteArgs> page =
+      PageInfo<RegistrationRouteArgs>(name);
+}
+
+class RegistrationRouteArgs {
+  const RegistrationRouteArgs({
+    required this.email,
+    this.key,
+  });
+
+  final String email;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'RegistrationRouteArgs{email: $email, key: $key}';
+  }
+}
+
+/// generated route for
 /// [WindowPage]
 class WindowRoute extends PageRouteInfo<void> {
   const WindowRoute({List<PageRouteInfo>? children})
@@ -334,70 +428,4 @@ class ProfileTab extends PageRouteInfo<void> {
   static const String name = 'ProfileTab';
 
   static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [CodeValidationPage]
-class CodeValidationRoute extends PageRouteInfo<void> {
-  const CodeValidationRoute({List<PageRouteInfo>? children})
-      : super(
-          CodeValidationRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'CodeValidationRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [ProfilePage]
-class ProfileRoute extends PageRouteInfo<void> {
-  const ProfileRoute({List<PageRouteInfo>? children})
-      : super(
-          ProfileRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'ProfileRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [RegistrationPage]
-class RegistrationRoute extends PageRouteInfo<RegistrationRouteArgs> {
-  RegistrationRoute({
-    required String email,
-    Key? key,
-    List<PageRouteInfo>? children,
-  }) : super(
-          RegistrationRoute.name,
-          args: RegistrationRouteArgs(
-            email: email,
-            key: key,
-          ),
-          initialChildren: children,
-        );
-
-  static const String name = 'RegistrationRoute';
-
-  static const PageInfo<RegistrationRouteArgs> page =
-      PageInfo<RegistrationRouteArgs>(name);
-}
-
-class RegistrationRouteArgs {
-  const RegistrationRouteArgs({
-    required this.email,
-    this.key,
-  });
-
-  final String email;
-
-  final Key? key;
-
-  @override
-  String toString() {
-    return 'RegistrationRouteArgs{email: $email, key: $key}';
-  }
 }

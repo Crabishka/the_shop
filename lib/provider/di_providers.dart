@@ -14,9 +14,9 @@ const String baseUrl = 'https://farm.fbtw.ru';
 
 final dioProvider = Provider<Dio>((ref) {
   return Dio()
-    // ..interceptors.add(
-    //   PrettyDioLogger(),
-    // )
+    ..interceptors.add(
+      PrettyDioLogger(),
+    )
     ..options.baseUrl = baseUrl;
 });
 

@@ -25,18 +25,19 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
+            textStyle: const TextStyle(fontSize: 12, letterSpacing: 1.44),
             disabledBackgroundColor: const Color(0xFF7D7D7D),
-            disabledForegroundColor: Theme.of(context).brightness == Brightness.dark
-                ? Colors.black
-                : Colors.white,
+            disabledForegroundColor:
+                Theme.of(context).brightness == Brightness.dark
+                    ? Colors.black
+                    : Colors.white,
             backgroundColor: Colors.black,
             foregroundColor: Theme.of(context).brightness == Brightness.dark
                 ? Colors.black
                 : Colors.white,
             shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(4)),
+              borderRadius: BorderRadius.all(Radius.zero),
             ),
-
           ),
         ),
       ),

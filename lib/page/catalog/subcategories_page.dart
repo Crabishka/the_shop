@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:the_shop_app/model/category.dart';
 import 'package:the_shop_app/page/component/farm_add_bar.dart';
 import 'package:the_shop_app/page/component/grey_divider.dart';
-import 'package:the_shop_app/page/component/subcategory_card.dart';
+import 'package:the_shop_app/page/component/catalog_component/subcategory_card.dart';
 
 @RoutePage()
 class SubcategoriesPage extends ConsumerWidget {

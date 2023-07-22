@@ -15,7 +15,11 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context.router.navigate(SubcategoriesRoute(category: category));
+        if (category.subcategories != null) {
+          context.router.navigate(SubcategoriesRoute(category: category));
+        } else {
+          context.router.navigate(CatalogRoute(categoryId: category.id));
+        }
       },
       child: Row(
         children: [
