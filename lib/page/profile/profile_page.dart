@@ -5,6 +5,7 @@ import 'package:the_shop_app/page/component/async_notified_elevated_button.dart'
 import 'package:the_shop_app/page/component/farm_add_bar.dart';
 import 'package:the_shop_app/page/component/input_text_field.dart';
 import 'package:the_shop_app/provider/di_providers.dart';
+import 'package:the_shop_app/router/app_router.dart';
 
 @RoutePage()
 class ProfilePage extends ConsumerStatefulWidget {
@@ -61,7 +62,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
             const SizedBox(
               height: 16,
             ),
-            InputTextField(controller: _controller),
+            InputTextField(
+                textHint: 'exmple@yandex.ru',
+                controller: _controller),
             const SizedBox(
               height: 48,
             ),
@@ -72,11 +75,22 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                 isActiveNotifier: isActiveNotifier,
                 callback: () async {
                   try {
-                    ref
+                    await ref
                         .read(profileRepositoryProvider)
                         .firstAuthStep(email: _controller.text);
+                    if (!mounted) return;
+                    AutoRouter.of(context).navigate(
+                      CodeValidationRoute(),
+                    );
                   } catch (e) {
-                    print(e);
+                    if (e == '451') {
+                      AutoRouter.of(context).navigate(
+                        RegistrationRoute(email: _controller.text),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Неизвестная ошибка')));
+                    }
                   }
                 },
               ),

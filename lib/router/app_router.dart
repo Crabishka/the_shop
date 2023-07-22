@@ -6,8 +6,10 @@ import 'package:the_shop_app/page/catalog/catalog_page.dart';
 import 'package:the_shop_app/page/catalog/category_page.dart';
 import 'package:the_shop_app/page/favourities_page.dart';
 import 'package:the_shop_app/page/home_page.dart';
+import 'package:the_shop_app/page/profile/code_validation_page.dart';
 import 'package:the_shop_app/page/profile/profile_page.dart';
 import 'package:the_shop_app/page/catalog/subcategories_page.dart';
+import 'package:the_shop_app/page/profile/registration_page.dart';
 import 'package:the_shop_app/page/window_page.dart';
 
 part 'app_router.gr.dart';
@@ -16,6 +18,8 @@ part 'app_router.gr.dart';
 class AppRouter extends _$AppRouter {
   @override
   List<AutoRoute> get routes => [
+        AutoRoute(page: RegistrationRoute.page),
+        AutoRoute(page: CodeValidationRoute.page),
         AutoRoute(
           path: '/',
           page: HomeRoute.page,
