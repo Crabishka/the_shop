@@ -7,10 +7,6 @@ const String accessTokenKey = 'access';
 const String refreshTokenKey = 'refresh';
 
 class TokenRepository extends StateNotifier<TokenDto?> {
-
-
-
-
   final storage = const FlutterSecureStorage();
 
   String? accessToken;
@@ -21,6 +17,10 @@ class TokenRepository extends StateNotifier<TokenDto?> {
   Future<void> initTokens() async {
     accessToken = await storage.read(key: accessTokenKey);
     refreshToken = await storage.read(key: refreshTokenKey);
+    if (accessToken != null && refreshToken != null) {
+      state = TokenDto(
+          accessToken: accessToken ?? '', refreshToken: refreshToken ?? '');
+    }
   }
 
   Future<String?> getAccessToken() async {
@@ -45,10 +45,5 @@ class TokenRepository extends StateNotifier<TokenDto?> {
     state = null;
     storage.delete(key: accessTokenKey);
     storage.delete(key: refreshTokenKey);
-
   }
 }
-
-final tokenRepositoryProvider = StateNotifierProvider<TokenRepository, TokenDto?>((ref) {
-  return TokenRepository(null);
-});

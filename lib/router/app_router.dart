@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:the_shop_app/model/category.dart';
 import 'package:the_shop_app/page/cart/cart_page.dart';
+import 'package:the_shop_app/page/cart/order_page.dart';
 import 'package:the_shop_app/page/catalog/catalog_page.dart';
 import 'package:the_shop_app/page/catalog/category_page.dart';
 import 'package:the_shop_app/page/favourities_page.dart';
@@ -45,6 +46,7 @@ class AppRouter extends _$AppRouter {
               page: CartTab.page,
               children: [
                 AutoRoute(page: CartRoute.page),
+                AutoRoute(page: OrderRoute.page),
               ],
             ),
             AutoRoute(

@@ -1,9 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:the_shop_app/page/component/common/farm_add_bar.dart';
+import 'package:the_shop_app/page/component/common/input_text_form_fields.dart';
 
-import 'package:the_shop_app/page/component/farm_add_bar.dart';
-import 'package:the_shop_app/page/component/profile_component/inpur_text_form_field.dart';
+import 'package:the_shop_app/page/component/profile_component/input_text_form_field.dart';
 
 import 'package:the_shop_app/page/component/profile_component/phone_number_text_form_field.dart';
 import 'package:the_shop_app/provider/di_providers.dart';
@@ -31,9 +32,9 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
 
   @override
   void initState() {
+    super.initState();
     _emailController.text = widget.email;
     _phoneController.text = '+7';
-    super.initState();
   }
 
   @override
@@ -73,55 +74,15 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
               const SizedBox(
                 height: 16,
               ),
-              InputTextFormField(
-                textHint: 'Иванов Иван',
-                controller: _nameController,
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Пожалуйста, введите Ваше ФИО';
-                  }
-                  if (value.length > 120) {
-                    return 'ФИО слишком длинное';
-                  }
-                  return null;
-                },
-              ),
+              InputTextFormFieldForName(nameController: _nameController),
               const SizedBox(
                 height: 16,
               ),
-              PhoneNumberInputTextFormField(
-                controller: _phoneController,
-                textHint: '+7 (000) 000-00-00',
-                validator: (value) {
-                  print(value);
-                  if (value == null || value.isEmpty) {
-                    return 'Пожалуйста, введите номер телефона';
-                  }
-                  if (value.length < phoneNumberLengthWithDecoration) {
-                    return 'Некорректный номер телефона';
-                  }
-
-                  return null;
-                },
-              ),
+              InputTextFormFieldForPhone(phoneController: _phoneController),
               const SizedBox(
                 height: 16,
               ),
-              InputTextFormField(
-                textHint: 'email@mail.ru',
-                controller: _emailController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Введите вашу почту';
-                  }
-                  if (!RegExp(
-                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                      .hasMatch(value)) {
-                    return 'Некорректный email';
-                  }
-                  return null;
-                },
-              ),
+              InputTextFormFieldForEmail(emailController: _emailController),
               const SizedBox(
                 height: 24,
               ),

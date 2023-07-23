@@ -11,6 +11,7 @@ class CartInfo with _$CartInfo {
     required String price,
     @JsonKey(name: 'old_price') required String oldPrice,
     required int count,
+
     /// int - productId
     required Map<int, ProductCount> products,
   }) = _CartInfo;

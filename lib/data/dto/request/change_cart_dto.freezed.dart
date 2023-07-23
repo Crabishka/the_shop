@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'add_to_cart_dto.dart';
+part of 'change_cart_dto.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,35 +14,35 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-AddToCartDto _$AddToCartDtoFromJson(Map<String, dynamic> json) {
+ChangeCartDto _$ChangeCartDtoFromJson(Map<String, dynamic> json) {
   return _AddToCartDto.fromJson(json);
 }
 
 /// @nodoc
-mixin _$AddToCartDto {
+mixin _$ChangeCartDto {
   @JsonKey(name: 'product_id')
-  int get productId => throw _privateConstructorUsedError;
-  int get count => throw _privateConstructorUsedError;
+  int? get productId => throw _privateConstructorUsedError;
+  int? get count => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $AddToCartDtoCopyWith<AddToCartDto> get copyWith =>
+  $ChangeCartDtoCopyWith<ChangeCartDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AddToCartDtoCopyWith<$Res> {
-  factory $AddToCartDtoCopyWith(
-          AddToCartDto value, $Res Function(AddToCartDto) then) =
-      _$AddToCartDtoCopyWithImpl<$Res, AddToCartDto>;
+abstract class $ChangeCartDtoCopyWith<$Res> {
+  factory $ChangeCartDtoCopyWith(
+          ChangeCartDto value, $Res Function(ChangeCartDto) then) =
+      _$ChangeCartDtoCopyWithImpl<$Res, ChangeCartDto>;
   @useResult
-  $Res call({@JsonKey(name: 'product_id') int productId, int count});
+  $Res call({@JsonKey(name: 'product_id') int? productId, int? count});
 }
 
 /// @nodoc
-class _$AddToCartDtoCopyWithImpl<$Res, $Val extends AddToCartDto>
-    implements $AddToCartDtoCopyWith<$Res> {
-  _$AddToCartDtoCopyWithImpl(this._value, this._then);
+class _$ChangeCartDtoCopyWithImpl<$Res, $Val extends ChangeCartDto>
+    implements $ChangeCartDtoCopyWith<$Res> {
+  _$ChangeCartDtoCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -52,36 +52,36 @@ class _$AddToCartDtoCopyWithImpl<$Res, $Val extends AddToCartDto>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? productId = null,
-    Object? count = null,
+    Object? productId = freezed,
+    Object? count = freezed,
   }) {
     return _then(_value.copyWith(
-      productId: null == productId
+      productId: freezed == productId
           ? _value.productId
           : productId // ignore: cast_nullable_to_non_nullable
-              as int,
-      count: null == count
+              as int?,
+      count: freezed == count
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
     ) as $Val);
   }
 }
 
 /// @nodoc
 abstract class _$$_AddToCartDtoCopyWith<$Res>
-    implements $AddToCartDtoCopyWith<$Res> {
+    implements $ChangeCartDtoCopyWith<$Res> {
   factory _$$_AddToCartDtoCopyWith(
           _$_AddToCartDto value, $Res Function(_$_AddToCartDto) then) =
       __$$_AddToCartDtoCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({@JsonKey(name: 'product_id') int productId, int count});
+  $Res call({@JsonKey(name: 'product_id') int? productId, int? count});
 }
 
 /// @nodoc
 class __$$_AddToCartDtoCopyWithImpl<$Res>
-    extends _$AddToCartDtoCopyWithImpl<$Res, _$_AddToCartDto>
+    extends _$ChangeCartDtoCopyWithImpl<$Res, _$_AddToCartDto>
     implements _$$_AddToCartDtoCopyWith<$Res> {
   __$$_AddToCartDtoCopyWithImpl(
       _$_AddToCartDto _value, $Res Function(_$_AddToCartDto) _then)
@@ -90,18 +90,18 @@ class __$$_AddToCartDtoCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? productId = null,
-    Object? count = null,
+    Object? productId = freezed,
+    Object? count = freezed,
   }) {
     return _then(_$_AddToCartDto(
-      productId: null == productId
+      productId: freezed == productId
           ? _value.productId
           : productId // ignore: cast_nullable_to_non_nullable
-              as int,
-      count: null == count
+              as int?,
+      count: freezed == count
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
     ));
   }
 }
@@ -110,21 +110,20 @@ class __$$_AddToCartDtoCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_AddToCartDto implements _AddToCartDto {
   const _$_AddToCartDto(
-      {@JsonKey(name: 'product_id') required this.productId,
-      required this.count});
+      {@JsonKey(name: 'product_id') this.productId, this.count});
 
   factory _$_AddToCartDto.fromJson(Map<String, dynamic> json) =>
       _$$_AddToCartDtoFromJson(json);
 
   @override
   @JsonKey(name: 'product_id')
-  final int productId;
+  final int? productId;
   @override
-  final int count;
+  final int? count;
 
   @override
   String toString() {
-    return 'AddToCartDto(productId: $productId, count: $count)';
+    return 'ChangeCartDto(productId: $productId, count: $count)';
   }
 
   @override
@@ -155,19 +154,19 @@ class _$_AddToCartDto implements _AddToCartDto {
   }
 }
 
-abstract class _AddToCartDto implements AddToCartDto {
+abstract class _AddToCartDto implements ChangeCartDto {
   const factory _AddToCartDto(
-      {@JsonKey(name: 'product_id') required final int productId,
-      required final int count}) = _$_AddToCartDto;
+      {@JsonKey(name: 'product_id') final int? productId,
+      final int? count}) = _$_AddToCartDto;
 
   factory _AddToCartDto.fromJson(Map<String, dynamic> json) =
       _$_AddToCartDto.fromJson;
 
   @override
   @JsonKey(name: 'product_id')
-  int get productId;
+  int? get productId;
   @override
-  int get count;
+  int? get count;
   @override
   @JsonKey(ignore: true)
   _$$_AddToCartDtoCopyWith<_$_AddToCartDto> get copyWith =>

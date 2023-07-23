@@ -4,10 +4,11 @@ import 'package:the_shop_app/provider/state/token_repository.dart';
 
 class JWTInterceptor extends QueuedInterceptor {
   JWTInterceptor({
+    required this.repository,
     required Dio dio,
   }) : _dio = dio;
 
-  final TokenRepository repository = TokenRepository();
+  final TokenRepository repository;
 
   final Dio _dio;
 

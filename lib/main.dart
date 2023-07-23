@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:the_shop_app/provider/service/app_provider_service.dart';
-import 'package:the_shop_app/provider/state/token_repository.dart';
+import 'package:the_shop_app/provider/manager/app_provider_service.dart';
 import 'package:the_shop_app/router/app_router.dart';
 
 ///
@@ -19,7 +18,7 @@ import 'package:the_shop_app/router/app_router.dart';
 ///  Смысл AppStateManager'а в том, что лишаем StateNotifier'ы всякой ответственности кроме хранения данных,
 ///  а также позволяем измененять нескольких состояний из одного места.
 ///  Например при выходе, мы должны сбросить состояние корзины/заказа/избранных.
-///  Но это в теории, на практике все эти проблемы решаются лишней проверкой на наличием Notifier на токене.
+///  Но это в теории, на практике все эти проблемы решаются лишней проверкой на наличие токена.
 ///
 ///    _______________________________
 ///   |                              |
@@ -31,13 +30,9 @@ import 'package:the_shop_app/router/app_router.dart';
 ///              v    v
 ///              Repository <---> Client
 ///
-Future<void> init() async {
-  await TokenRepository().initTokens();
-}
 
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  await init();
   runApp(
     ProviderScope(
       child: MyApp(),
@@ -52,7 +47,7 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.read(appProvider).tryLoginIfTokenExist(ref);
+    ref.read(appStateManagerProvider).onStart(ref);
 
     return MaterialApp.router(
       routerConfig: _appRouter.config(),

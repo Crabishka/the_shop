@@ -66,10 +66,18 @@ class ProfileRepository {
     }
   }
 
-  Future<ProfileInfoDto> getProfileInfo() async {
+  // TODO city is not released
+  Future<ProfileInfo> getProfileInfo() async {
     try {
       var dto = await _api.authUser();
-      return dto;
+      return ProfileInfo(
+        city: '',
+        firstName: dto.firstName,
+        gender: dto.gender,
+        email: dto.email,
+        phone: dto.phone,
+        address: dto.address ?? '',
+      );
     } catch (e) {
       final res = (e as DioException).response;
       if (res != null) throw res.statusCode.toString();

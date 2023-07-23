@@ -2,12 +2,14 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:the_shop_app/page/component/async_notified_elevated_button.dart';
-import 'package:the_shop_app/page/component/farm_add_bar.dart';
+import 'package:the_shop_app/page/component/common/async_notified_elevated_button.dart';
+
 import 'package:the_shop_app/page/component/profile_component/input_text_field.dart';
 import 'package:the_shop_app/provider/di_providers.dart';
-import 'package:the_shop_app/provider/service/app_provider_service.dart';
+import 'package:the_shop_app/provider/manager/app_provider_service.dart';
 import 'package:the_shop_app/router/app_router.dart';
+
+import '../component/common/farm_add_bar.dart';
 
 @RoutePage()
 class CodeValidationPage extends ConsumerStatefulWidget {
@@ -120,7 +122,7 @@ class _CodeValidationPageState extends ConsumerState<CodeValidationPage> {
                             )
                             .then((value) {
                           ref
-                              .read(appProvider)
+                              .read(appStateManagerProvider)
                               .loginByTokens(ref, value)
                               .then((value) {
                             context.router.navigate(const ProfileRoute());

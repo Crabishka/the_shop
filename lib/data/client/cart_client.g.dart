@@ -19,7 +19,7 @@ class _CartClient implements CartClient {
   String? baseUrl;
 
   @override
-  Future<CartDto> cartCart(AddToCartDto dto) async {
+  Future<CartDto> cartCart(ChangeCartDto dto) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Content-Type': 'application/json'};
@@ -44,12 +44,12 @@ class _CartClient implements CartClient {
   }
 
   @override
-  Future<CartDto> cartCalculate() async {
+  Future<CartDto> cartCalculate(ChangeCartDto dto) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Content-Type': 'application/json'};
     _headers.removeWhere((k, v) => v == null);
-    final Map<String, dynamic>? _data = null;
+    final _data = dto;
     final _result =
         await _dio.fetch<Map<String, dynamic>>(_setStreamType<CartDto>(Options(
       method: 'POST',
@@ -69,7 +69,7 @@ class _CartClient implements CartClient {
   }
 
   @override
-  Future<CartDto> putCartCart(AddToCartDto dto) async {
+  Future<CartDto> putCartCart(ChangeCartDto dto) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Content-Type': 'application/json'};
@@ -78,6 +78,31 @@ class _CartClient implements CartClient {
     final _result =
         await _dio.fetch<Map<String, dynamic>>(_setStreamType<CartDto>(Options(
       method: 'PUT',
+      headers: _headers,
+      extra: _extra,
+      contentType: 'application/json',
+    )
+            .compose(
+              _dio.options,
+              '/cart/cart/',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = CartDto.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<CartDto> deleteCartCart(ChangeCartDto dto) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Content-Type': 'application/json'};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = dto;
+    final _result =
+        await _dio.fetch<Map<String, dynamic>>(_setStreamType<CartDto>(Options(
+      method: 'DELETE',
       headers: _headers,
       extra: _extra,
       contentType: 'application/json',

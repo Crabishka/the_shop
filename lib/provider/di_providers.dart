@@ -3,12 +3,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:the_shop_app/data/client/cart_client.dart';
 import 'package:the_shop_app/data/client/category_client.dart';
+import 'package:the_shop_app/data/client/order_client.dart';
+import 'package:the_shop_app/data/client/payment_client.dart';
 import 'package:the_shop_app/data/client/product_client.dart';
 import 'package:the_shop_app/data/client/profile_client.dart';
 import 'package:the_shop_app/data/client/window_banner_client.dart';
+import 'package:the_shop_app/data/dto/response/token_dto.dart';
 import 'package:the_shop_app/data/repository/cart_repository.dart';
 import 'package:the_shop_app/data/repository/category_repository.dart';
 import 'package:the_shop_app/data/interceptor.dart';
+import 'package:the_shop_app/data/repository/order_repository.dart';
+import 'package:the_shop_app/data/repository/payment_repository.dart';
 import 'package:the_shop_app/data/repository/product_repository.dart';
 import 'package:the_shop_app/data/repository/profile_repository.dart';
 import 'package:the_shop_app/provider/state/token_repository.dart';
@@ -16,8 +21,11 @@ import 'package:the_shop_app/data/repository/window_banner_repository.dart';
 
 const String baseUrl = 'https://farm.fbtw.ru';
 
-final tokenRepositoryProvider = Provider<TokenRepository>((ref) {
-  return TokenRepository();
+// TODO заменить riverpod плагином
+
+final tokenRepositoryProvider =
+    StateNotifierProvider<TokenRepository, TokenDto?>((ref) {
+  return TokenRepository(null);
 });
 
 Dio dio = Dio();
@@ -27,7 +35,12 @@ final dioProvider = Provider<Dio>((ref) {
     ..interceptors.add(
       PrettyDioLogger(),
     )
-    ..interceptors.add(JWTInterceptor(dio: dio))
+    ..interceptors.add(
+      JWTInterceptor(
+        dio: dio,
+        repository: ref.read(tokenRepositoryProvider.notifier),
+      ),
+    )
     ..options.baseUrl = baseUrl;
 });
 
@@ -69,4 +82,20 @@ final cartClientProvider = Provider<CartClient>((ref) {
 
 final cartRepositoryProvider = Provider<CartRepository>((ref) {
   return CartRepository(ref.read(cartClientProvider));
+});
+
+final paymentClientProvider = Provider<PaymentClient>((ref) {
+  return PaymentClient(ref.read(dioProvider));
+});
+
+final paymentRepositoryProvider = Provider<PaymentRepository>((ref) {
+  return PaymentRepository(ref.read(paymentClientProvider));
+});
+
+final orderClientProvider = Provider<OrderClient>((ref) {
+  return OrderClient(ref.read(dioProvider));
+});
+
+final orderRepositoryProvider = Provider<OrderRepository>((ref) {
+  return OrderRepository(ref.read(orderClientProvider));
 });

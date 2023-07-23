@@ -7,9 +7,6 @@ import 'package:the_shop_app/router/app_router.dart';
 class HomePage extends ConsumerWidget {
   const HomePage({Key? key}) : super(key: key);
 
-
-
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AutoTabsRouter(

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:the_shop_app/model/category.dart';
 import 'package:the_shop_app/page/component/catalog_component/category_card.dart';
-import 'package:the_shop_app/page/component/grey_divider.dart';
+import 'package:the_shop_app/page/component/common/grey_divider.dart';
 import 'package:the_shop_app/provider/di_providers.dart';
 import 'package:the_shop_app/router/app_router.dart';
 

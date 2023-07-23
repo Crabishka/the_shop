@@ -1,12 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
+
 import 'package:the_shop_app/data/dto/request/filter_product_dto.dart';
 import 'package:the_shop_app/model/product.dart';
-import 'package:the_shop_app/page/component/farm_add_bar.dart';
+import 'package:the_shop_app/page/component/common/farm_add_bar.dart';
+
 import 'package:the_shop_app/provider/di_providers.dart';
-import 'package:the_shop_app/provider/service/app_provider_service.dart';
+import 'package:the_shop_app/provider/manager/app_provider_service.dart';
 import 'package:the_shop_app/provider/state/cart_state_provider.dart';
 import 'package:the_shop_app/router/app_router.dart';
 
@@ -130,13 +131,16 @@ class ProductCardButton extends ConsumerWidget {
     int count = cartState?.products[product.id]?.count ?? 0;
     return ElevatedButton(
       onPressed: () async {
-        var token = ref.read(tokenRepositoryProvider).accessToken;
+        var token = ref.read(tokenRepositoryProvider)?.accessToken;
         if (token == null) {
           buildErrorShowModalBottomSheet(
               context, 'Авторизуйтесь, чтобы добавить товар.');
           return;
         }
-        ref.read(appProvider).addToCart(ref, product.id, 1).catchError((e) {
+        ref
+            .read(appStateManagerProvider)
+            .addToCart(ref, product.id)
+            .catchError((e) {
           if (e == '401') {
             buildErrorShowModalBottomSheet(
                 context, 'Авторизуйтесь, чтобы добавить товар.');

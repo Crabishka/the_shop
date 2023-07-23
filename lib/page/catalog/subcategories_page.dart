@@ -2,8 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:the_shop_app/model/category.dart';
-import 'package:the_shop_app/page/component/farm_add_bar.dart';
-import 'package:the_shop_app/page/component/grey_divider.dart';
+import 'package:the_shop_app/page/component/common/farm_add_bar.dart';
+
+import 'package:the_shop_app/page/component/common/grey_divider.dart';
 import 'package:the_shop_app/page/component/catalog_component/subcategory_card.dart';
 
 @RoutePage()

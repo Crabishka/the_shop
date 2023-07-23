@@ -21,16 +21,13 @@ class CartDto with _$CartDto {
 
 @freezed
 class ProductCount with _$ProductCount {
-
-
   const factory ProductCount({
     required int count,
     required CartProduct product,
-}) = _ProductCount;
+  }) = _ProductCount;
 
   factory ProductCount.fromJson(Map<String, dynamic> json) =>
       _$ProductCountFromJson(json);
-
 }
 
 @freezed

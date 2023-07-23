@@ -5,14 +5,9 @@ import 'package:the_shop_app/model/profile.dart';
 class ProfileStateNotifier extends StateNotifier<ProfileInfo?> {
   ProfileStateNotifier() : super(null);
 
-  ProfileInfo? getProfileInfo() {
-    // если null идем в репу, смотрим токен
-    // если токен есть пытаемся получить
-    // если ошибка, то предлагаем зарегаться
-    return state;
+  void setProfileInfo(ProfileInfo profileInfo) {
+    state = profileInfo;
   }
-
-  void setProfileInfo() {}
 }
 
 final profileProvider =
