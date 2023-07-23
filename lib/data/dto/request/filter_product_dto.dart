@@ -12,15 +12,11 @@ class FilterProductDto with _$FilterProductDto {
   )
   const factory FilterProductDto({
     String? brand,
-    @JsonKey(name: 'category_ids')
-    List<int>? categoryIds,
-    @JsonKey(name: 'product_ids')
-    List<int>? productIds,
+    @JsonKey(name: 'category_ids') List<int>? categoryIds,
+    @JsonKey(name: 'product_ids') List<int>? productIds,
     String? search,
-    @JsonKey(name: 'sort_by')
-    String? sortBy,
+    @JsonKey(name: 'sort_by') String? sortBy,
   }) = _FilterProductDto;
-
 
   factory FilterProductDto.fromJson(Map<String, dynamic> json) =>
       _$FilterProductDtoFromJson(json);

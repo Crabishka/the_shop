@@ -52,6 +52,9 @@ class MainBanner extends StatelessWidget {
             child: Text(
               textAlign: TextAlign.center,
               banner.text,
+              style: const TextStyle(
+                letterSpacing: 0.9,
+              ),
             ),
           ),
         );

@@ -32,7 +32,6 @@ class _AsyncNotifiedElevatedButtonState
             onPressed: value && active ? _doCallBack : null,
             child: Text(
               widget.text,
-
             ));
       },
     );

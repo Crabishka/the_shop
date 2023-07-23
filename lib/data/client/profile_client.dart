@@ -3,6 +3,7 @@ import 'package:retrofit/http.dart';
 import 'package:the_shop_app/data/dto/request/email_auth_part1_dto.dart';
 import 'package:the_shop_app/data/dto/request/email_auth_part2_dto.dart';
 import 'package:the_shop_app/data/dto/request/reg_user_dto.dart';
+import 'package:the_shop_app/data/dto/response/profile_info_dto.dart';
 import 'package:the_shop_app/data/dto/response/token_dto.dart';
 
 part 'profile_client.g.dart';
@@ -24,6 +25,10 @@ abstract class ProfileClient {
 
   @POST('/auth/register')
   @Headers({'Content-Type': 'application/json'})
-  Future<void> authRegister(@Body() RegUserDto dto);
+  Future<void> authRegister(
+    @Body() RegUserDto dto,
+  );
 
+  @GET('/auth/user')
+  Future<ProfileInfoDto> authUser();
 }

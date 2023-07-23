@@ -50,7 +50,10 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const FarmAppBar(title: 'Регистрация'),
+      appBar: const FarmAppBar(
+        title: 'Регистрация',
+        isBack: true,
+      ),
       body: Form(
         key: _formKey,
         child: Padding(

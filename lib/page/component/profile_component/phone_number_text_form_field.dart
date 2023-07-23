@@ -15,10 +15,8 @@ class PhoneNumberInputTextFormField extends StatelessWidget {
 
   final maskFormatter = MaskTextInputFormatter(
       mask: '+7 (###) ###-##-##',
-      filter: { "#": RegExp(r'[0-9]') },
-      type: MaskAutoCompletionType.lazy
-  );
-
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +29,7 @@ class PhoneNumberInputTextFormField extends StatelessWidget {
         hintText: textHint,
         border: InputBorder.none,
         contentPadding:
-        const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         filled: true,
         fillColor: const Color(0xFFF0F0F0),
       ),

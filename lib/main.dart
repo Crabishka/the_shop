@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:the_shop_app/data/repository/token_repository.dart';
 import 'package:the_shop_app/router/app_router.dart';
 
-void main() {
+Future<void> init() async {
+  await TokenRepository().initTokens();
+}
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await init();
   runApp(ProviderScope(child: MyApp()));
 }
 

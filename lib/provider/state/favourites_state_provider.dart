@@ -9,7 +9,7 @@ class FavouritesStateNotifier extends StateNotifier<Set<Product>> {
   }
 }
 
-final catalogProvider =
+final favouriteProvider =
     StateNotifierProvider<FavouritesStateNotifier, Set<Product>>((ref) {
   return FavouritesStateNotifier();
 });

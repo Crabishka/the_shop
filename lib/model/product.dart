@@ -11,6 +11,8 @@ class Product with _$Product {
     required String price,
     required double discount,
     @JsonKey(name: 'old_price') String? oldPrice,
+    required String name,
+    required String article,
     required String picture,
     // TODO add badges
     required double? rating,

@@ -1,6 +1,3 @@
-import 'dart:io';
-
-
 import 'package:dio/dio.dart' hide Headers;
 
 import 'package:retrofit/http.dart';
@@ -17,7 +14,6 @@ abstract class ProductClient {
     String baseUrl,
   }) = _ProductClient;
 
-
   ///     FIXME
   ///     retrofit_generator was downgrade to 6.0.0 'cause
   ///     https://github.com/trevorwang/retrofit.dart/issues/577
@@ -26,6 +22,4 @@ abstract class ProductClient {
   @POST('/catalog/products/')
   @Headers({'Content-Type': 'application/json'})
   Future<PageableDto<Product>> catalogProducts(@Body() FilterProductDto dto);
-
-
 }

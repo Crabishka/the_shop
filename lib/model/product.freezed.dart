@@ -25,6 +25,8 @@ mixin _$Product {
   double get discount => throw _privateConstructorUsedError;
   @JsonKey(name: 'old_price')
   String? get oldPrice => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+  String get article => throw _privateConstructorUsedError;
   String get picture => throw _privateConstructorUsedError; // TODO add badges
   double? get rating => throw _privateConstructorUsedError;
   @JsonKey(name: 'reviews_count')
@@ -46,6 +48,8 @@ abstract class $ProductCopyWith<$Res> {
       String price,
       double discount,
       @JsonKey(name: 'old_price') String? oldPrice,
+      String name,
+      String article,
       String picture,
       double? rating,
       @JsonKey(name: 'reviews_count') int reviewCount,
@@ -69,6 +73,8 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
     Object? price = null,
     Object? discount = null,
     Object? oldPrice = freezed,
+    Object? name = null,
+    Object? article = null,
     Object? picture = null,
     Object? rating = freezed,
     Object? reviewCount = null,
@@ -91,6 +97,14 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
           ? _value.oldPrice
           : oldPrice // ignore: cast_nullable_to_non_nullable
               as String?,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      article: null == article
+          ? _value.article
+          : article // ignore: cast_nullable_to_non_nullable
+              as String,
       picture: null == picture
           ? _value.picture
           : picture // ignore: cast_nullable_to_non_nullable
@@ -123,6 +137,8 @@ abstract class _$$_ProductCopyWith<$Res> implements $ProductCopyWith<$Res> {
       String price,
       double discount,
       @JsonKey(name: 'old_price') String? oldPrice,
+      String name,
+      String article,
       String picture,
       double? rating,
       @JsonKey(name: 'reviews_count') int reviewCount,
@@ -143,6 +159,8 @@ class __$$_ProductCopyWithImpl<$Res>
     Object? price = null,
     Object? discount = null,
     Object? oldPrice = freezed,
+    Object? name = null,
+    Object? article = null,
     Object? picture = null,
     Object? rating = freezed,
     Object? reviewCount = null,
@@ -165,6 +183,14 @@ class __$$_ProductCopyWithImpl<$Res>
           ? _value.oldPrice
           : oldPrice // ignore: cast_nullable_to_non_nullable
               as String?,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      article: null == article
+          ? _value.article
+          : article // ignore: cast_nullable_to_non_nullable
+              as String,
       picture: null == picture
           ? _value.picture
           : picture // ignore: cast_nullable_to_non_nullable
@@ -193,6 +219,8 @@ class _$_Product implements _Product {
       required this.price,
       required this.discount,
       @JsonKey(name: 'old_price') this.oldPrice,
+      required this.name,
+      required this.article,
       required this.picture,
       required this.rating,
       @JsonKey(name: 'reviews_count') required this.reviewCount,
@@ -211,6 +239,10 @@ class _$_Product implements _Product {
   @JsonKey(name: 'old_price')
   final String? oldPrice;
   @override
+  final String name;
+  @override
+  final String article;
+  @override
   final String picture;
 // TODO add badges
   @override
@@ -223,7 +255,7 @@ class _$_Product implements _Product {
 
   @override
   String toString() {
-    return 'Product(id: $id, price: $price, discount: $discount, oldPrice: $oldPrice, picture: $picture, rating: $rating, reviewCount: $reviewCount, brand: $brand)';
+    return 'Product(id: $id, price: $price, discount: $discount, oldPrice: $oldPrice, name: $name, article: $article, picture: $picture, rating: $rating, reviewCount: $reviewCount, brand: $brand)';
   }
 
   @override
@@ -237,6 +269,8 @@ class _$_Product implements _Product {
                 other.discount == discount) &&
             (identical(other.oldPrice, oldPrice) ||
                 other.oldPrice == oldPrice) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.article, article) || other.article == article) &&
             (identical(other.picture, picture) || other.picture == picture) &&
             (identical(other.rating, rating) || other.rating == rating) &&
             (identical(other.reviewCount, reviewCount) ||
@@ -247,7 +281,7 @@ class _$_Product implements _Product {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, price, discount, oldPrice,
-      picture, rating, reviewCount, brand);
+      name, article, picture, rating, reviewCount, brand);
 
   @JsonKey(ignore: true)
   @override
@@ -269,6 +303,8 @@ abstract class _Product implements Product {
       required final String price,
       required final double discount,
       @JsonKey(name: 'old_price') final String? oldPrice,
+      required final String name,
+      required final String article,
       required final String picture,
       required final double? rating,
       @JsonKey(name: 'reviews_count') required final int reviewCount,
@@ -285,6 +321,10 @@ abstract class _Product implements Product {
   @override
   @JsonKey(name: 'old_price')
   String? get oldPrice;
+  @override
+  String get name;
+  @override
+  String get article;
   @override
   String get picture;
   @override // TODO add badges

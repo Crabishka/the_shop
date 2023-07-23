@@ -5,20 +5,24 @@ class FarmAppBar extends StatelessWidget implements PreferredSizeWidget {
   const FarmAppBar({
     super.key,
     required this.title,
+    this.isBack = false,
   });
 
   final String title;
+  final bool isBack;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: true,
-      leading: IconButton(
-        icon: const Icon(Icons.arrow_back_ios_rounded),
-        onPressed: () {
-          AutoRouter.of(context).pop();
-        },
-      ),
+      leading: isBack
+          ? IconButton(
+              icon: const Icon(Icons.arrow_back_ios_rounded),
+              onPressed: () {
+                AutoRouter.of(context).pop();
+              },
+            )
+          : null,
       title: Text(
         title,
         style: const TextStyle(

@@ -20,6 +20,7 @@ class SubcategoriesPage extends ConsumerWidget {
     return Scaffold(
       appBar: const FarmAppBar(
         title: 'Подкатегории',
+        isBack: true,
       ),
       body: ListView.separated(
         itemCount: subcategories.length,

@@ -12,7 +12,6 @@ class ProductRepository {
   ProductRepository(this._api);
 
   Future<PageableDto<Product>> getCategories({required FilterProductDto dto}) {
-
     return _api.catalogProducts(dto);
   }
 }

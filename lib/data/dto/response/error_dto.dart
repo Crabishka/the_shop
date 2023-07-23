@@ -10,8 +10,7 @@ class ErrorDto with _$ErrorDto {
     int? success,
     int? status,
     int? error,
-    @JsonKey(name: 'error_text')
-    String? errorText,
+    @JsonKey(name: 'error_text') String? errorText,
     String? message,
   }) = _ErrorDto;
 

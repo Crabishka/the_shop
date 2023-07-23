@@ -4,6 +4,9 @@ import 'package:the_shop_app/data/dto/request/email_auth_part1_dto.dart';
 import 'package:intl/intl.dart';
 import 'package:the_shop_app/data/dto/request/email_auth_part2_dto.dart';
 import 'package:the_shop_app/data/dto/request/reg_user_dto.dart';
+import 'package:the_shop_app/data/dto/response/profile_info_dto.dart';
+import 'package:the_shop_app/data/dto/response/token_dto.dart';
+import 'package:the_shop_app/model/profile.dart';
 
 class ProfileRepository {
   final ProfileClient _api;
@@ -18,16 +21,21 @@ class ProfileRepository {
     } catch (e) {
       final res = (e as DioException).response;
       if (res != null) throw res.statusCode.toString();
+      throw 'unknown';
     }
   }
 
   /// 400 - wrong code
-  Future<void> verifyCode({required String email, required String code}) async {
+  Future<TokenDto> verifyCode(
+      {required String email, required String code}) async {
     try {
-      await _api.authEmailPart2(EmailAuthPart2Dto(email: email, code: code));
+      var token = await _api
+          .authEmailPart2(EmailAuthPart2Dto(email: email, code: code));
+      return token;
     } catch (e) {
       final res = (e as DioException).response;
       if (res != null) throw res.statusCode.toString();
+      throw 'unknown';
     }
   }
 
@@ -55,6 +63,17 @@ class ProfileRepository {
     } catch (e) {
       final res = (e as DioException).response;
       if (res != null) throw res.statusCode.toString();
+    }
+  }
+
+  Future<ProfileInfoDto> getProfileInfo() async {
+    try {
+      var dto = await _api.authUser();
+      return dto;
+    } catch (e) {
+      final res = (e as DioException).response;
+      if (res != null) throw res.statusCode.toString();
+      throw 'unknown';
     }
   }
 }

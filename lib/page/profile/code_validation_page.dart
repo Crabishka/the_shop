@@ -6,6 +6,8 @@ import 'package:the_shop_app/page/component/async_notified_elevated_button.dart'
 import 'package:the_shop_app/page/component/farm_add_bar.dart';
 import 'package:the_shop_app/page/component/profile_component/input_text_field.dart';
 import 'package:the_shop_app/provider/di_providers.dart';
+import 'package:the_shop_app/provider/service/app_provider_service.dart';
+import 'package:the_shop_app/router/app_router.dart';
 
 @RoutePage()
 class CodeValidationPage extends ConsumerStatefulWidget {
@@ -48,7 +50,10 @@ class _CodeValidationPageState extends ConsumerState<CodeValidationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const FarmAppBar(title: 'Вход'),
+      appBar: const FarmAppBar(
+        title: 'Вход',
+        isBack: true,
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -77,6 +82,8 @@ class _CodeValidationPageState extends ConsumerState<CodeValidationPage> {
                   Expanded(
                     flex: 4,
                     child: PinCodeTextField(
+                      // мы его удаляем сами
+                      autoDisposeControllers: false,
                       controller: _pinController,
                       key: formKey,
                       keyboardType: TextInputType.number,
@@ -105,11 +112,24 @@ class _CodeValidationPageState extends ConsumerState<CodeValidationPage> {
                     width: double.infinity,
                     child: AsyncNotifiedElevatedButton(
                       callback: () async {
-                        await ref.read(profileRepositoryProvider).verifyCode(
+                        ref
+                            .read(profileRepositoryProvider)
+                            .verifyCode(
                               email: widget.email,
                               code: _pinController.text,
+                            )
+                            .then((value) {
+                          ref.read(appProvider).loginByTokens(ref, value);
+                          context.router.navigate(const ProfileRoute());
+                        }).catchError((e) {
+                          if (e == '400') {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Неправильный код'),
+                              ),
                             );
-
+                          }
+                        });
                       },
                       isActiveNotifier: isActive,
                       text: 'ВОЙТИ',
