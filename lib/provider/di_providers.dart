@@ -11,7 +11,7 @@ import 'package:the_shop_app/data/repository/category_repository.dart';
 import 'package:the_shop_app/data/interceptor.dart';
 import 'package:the_shop_app/data/repository/product_repository.dart';
 import 'package:the_shop_app/data/repository/profile_repository.dart';
-import 'package:the_shop_app/data/repository/token_repository.dart';
+import 'package:the_shop_app/provider/state/token_repository.dart';
 import 'package:the_shop_app/data/repository/window_banner_repository.dart';
 
 const String baseUrl = 'https://farm.fbtw.ru';

@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:the_shop_app/data/repository/token_repository.dart';
+import 'package:the_shop_app/provider/state/token_repository.dart';
 import 'package:the_shop_app/page/component/farm_add_bar.dart';
 import 'package:the_shop_app/page/component/grey_divider.dart';
 import 'package:the_shop_app/provider/service/app_provider_service.dart';

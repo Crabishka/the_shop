@@ -6,24 +6,21 @@ import 'package:the_shop_app/data/dto/response/token_dto.dart';
 const String accessTokenKey = 'access';
 const String refreshTokenKey = 'refresh';
 
-class TokenRepository extends ChangeNotifier {
-  static final TokenRepository _singleton = TokenRepository._internal();
+class TokenRepository extends StateNotifier<TokenDto?> {
 
-  factory TokenRepository() {
-    return _singleton;
-  }
 
-  TokenRepository._internal();
+
 
   final storage = const FlutterSecureStorage();
 
   String? accessToken;
   String? refreshToken;
 
+  TokenRepository(super.state);
+
   Future<void> initTokens() async {
     accessToken = await storage.read(key: accessTokenKey);
     refreshToken = await storage.read(key: refreshTokenKey);
-    notifyListeners();
   }
 
   Future<String?> getAccessToken() async {
@@ -35,23 +32,23 @@ class TokenRepository extends ChangeNotifier {
   }
 
   Future<void> saveTokens(TokenDto tokens) async {
-    print('Сохранено $tokens');
+    state = tokens;
     accessToken = tokens.accessToken;
     refreshToken = tokens.refreshToken;
     storage.write(key: accessTokenKey, value: tokens.accessToken);
     storage.write(key: refreshTokenKey, value: tokens.refreshToken);
-    notifyListeners();
   }
 
   void deleteTokens() {
     accessToken = null;
     refreshToken = null;
+    state = null;
     storage.delete(key: accessTokenKey);
     storage.delete(key: refreshTokenKey);
-    notifyListeners();
+
   }
 }
 
-final tokenRepositoryProvider = ChangeNotifierProvider<TokenRepository>((ref) {
-  return TokenRepository();
+final tokenRepositoryProvider = StateNotifierProvider<TokenRepository, TokenDto?>((ref) {
+  return TokenRepository(null);
 });

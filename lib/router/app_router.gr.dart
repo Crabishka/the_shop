@@ -15,12 +15,6 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
-    CartRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const CartPage(),
-      );
-    },
     CatalogRoute.name: (routeData) {
       final args = routeData.argsAs<CatalogRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -127,21 +121,13 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const ProfileTabPage(),
       );
     },
+    CartRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const CartPage(),
+      );
+    },
   };
-}
-
-/// generated route for
-/// [CartPage]
-class CartRoute extends PageRouteInfo<void> {
-  const CartRoute({List<PageRouteInfo>? children})
-      : super(
-          CartRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'CartRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
@@ -446,6 +432,20 @@ class ProfileTab extends PageRouteInfo<void> {
         );
 
   static const String name = 'ProfileTab';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [CartPage]
+class CartRoute extends PageRouteInfo<void> {
+  const CartRoute({List<PageRouteInfo>? children})
+      : super(
+          CartRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CartRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

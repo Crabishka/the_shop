@@ -8,6 +8,7 @@ import 'package:the_shop_app/page/component/farm_add_bar.dart';
 import 'package:the_shop_app/provider/di_providers.dart';
 import 'package:the_shop_app/provider/service/app_provider_service.dart';
 import 'package:the_shop_app/provider/state/cart_state_provider.dart';
+import 'package:the_shop_app/router/app_router.dart';
 
 @RoutePage()
 class CatalogPage extends ConsumerWidget {
@@ -125,12 +126,22 @@ class ProductCardButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // это отвратительно
     var cartState = ref.watch(cartProvider);
-    int count = cartState[product.id] ?? 0;
+    int count = cartState?.products[product.id]?.count ?? 0;
     return ElevatedButton(
-      onPressed: () {
-        ref.read(appProvider).addToCart(ref, product.id, 1);
+      onPressed: () async {
+        var token = ref.read(tokenRepositoryProvider).accessToken;
+        if (token == null) {
+          buildErrorShowModalBottomSheet(
+              context, 'Авторизуйтесь, чтобы добавить товар.');
+          return;
+        }
+        ref.read(appProvider).addToCart(ref, product.id, 1).catchError((e) {
+          if (e == '401') {
+            buildErrorShowModalBottomSheet(
+                context, 'Авторизуйтесь, чтобы добавить товар.');
+          }
+        });
       },
       style: ElevatedButton.styleFrom(
         padding: EdgeInsets.zero,
@@ -145,6 +156,48 @@ class ProductCardButton extends ConsumerWidget {
               count.toString(),
               style: const TextStyle(fontSize: 14),
             ),
+    );
+  }
+
+  Future<dynamic> buildErrorShowModalBottomSheet(
+      BuildContext context, String text) {
+    return showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Container(
+          height: 200,
+          width: double.infinity,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 52,
+                ),
+                Text(
+                  text,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  height: 52,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      context.router.navigate(const AuthRoute());
+                    },
+                    child: const Text('ВХОД / ЗАРЕГИСТРИРОВАТЬСЯ'),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

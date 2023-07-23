@@ -1,9 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:the_shop_app/data/repository/token_repository.dart';
+import 'package:the_shop_app/provider/service/app_provider_service.dart';
+import 'package:the_shop_app/provider/state/token_repository.dart';
 import 'package:the_shop_app/router/app_router.dart';
 
+///
+///  Как должна работать архитектура этого чуда.
+///  UI рисуется на основании StateNotifier,
+///  но UI не меняет состояние StateNotifier напрямую.
+///  Вместо этого все изменения состояния проходят через AppStateManager.
+///  В AppStateManager прокидывается WidgerRef, с помощью которого он обращается к состояниям.
+///  AppStateManager уже ходит в репозитории, которые ходят к клиенту.
+///  После получения всех нужных данных и их валидации, AppStateManager
+///  обновляет все необходимые состояния.
+///  Сами Notifier'ы не содержат логики/валидации/маппинга, они могут просто менять свое состояние.
+///  TODO (Кроме TokenProvider'а он нуждается в рефакторинге)
+///  Смысл AppStateManager'а в том, что лишаем StateNotifier'ы всякой ответственности кроме хранения данных,
+///  а также позволяем измененять нескольких состояний из одного места.
+///  Например при выходе, мы должны сбросить состояние корзины/заказа/избранных.
+///  Но это в теории, на практике все эти проблемы решаются лишней проверкой на наличием Notifier на токене.
+///
+///    _______________________________
+///   |                              |
+///   v                              |
+///  UI --> AppStateManager --> StateNotifier
+///              ^    ^
+///              |    |
+///              |    |
+///              v    v
+///              Repository <---> Client
+///
 Future<void> init() async {
   await TokenRepository().initTokens();
 }
@@ -11,23 +38,31 @@ Future<void> init() async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await init();
-  runApp(ProviderScope(child: MyApp()));
+  runApp(
+    ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
-  MyApp({super.key});
-
+class MyApp extends ConsumerWidget {
   final _appRouter = AppRouter();
 
+  MyApp({super.key});
+
   @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.read(appProvider).tryLoginIfTokenExist(ref);
+
     return MaterialApp.router(
       routerConfig: _appRouter.config(),
       title: 'Flutter Demo',
       theme: ThemeData(
         textTheme: GoogleFonts.montserratTextTheme(),
-        colorScheme: const ColorScheme.light(primary: Colors.black),
+        colorScheme: const ColorScheme.light(
+          primary: Colors.black,
+          secondary: Colors.white,
+        ),
         useMaterial3: true,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(

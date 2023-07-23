@@ -119,8 +119,12 @@ class _CodeValidationPageState extends ConsumerState<CodeValidationPage> {
                               code: _pinController.text,
                             )
                             .then((value) {
-                          ref.read(appProvider).loginByTokens(ref, value);
-                          context.router.navigate(const ProfileRoute());
+                          ref
+                              .read(appProvider)
+                              .loginByTokens(ref, value)
+                              .then((value) {
+                            context.router.navigate(const ProfileRoute());
+                          });
                         }).catchError((e) {
                           if (e == '400') {
                             ScaffoldMessenger.of(context).showSnackBar(
