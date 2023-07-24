@@ -8,6 +8,7 @@ import 'package:the_shop_app/model/product.dart';
 import 'package:the_shop_app/model/product_info.dart';
 import 'package:the_shop_app/page/component/cart_component/change_count_button.dart';
 import 'package:the_shop_app/page/component/common/farm_add_bar.dart';
+import 'package:the_shop_app/page/component/common/grey_divider.dart';
 import 'package:the_shop_app/page/component/const_param.dart';
 import 'package:the_shop_app/provider/di_providers.dart';
 import 'package:the_shop_app/provider/manager/app_provider_service.dart';
@@ -34,33 +35,59 @@ class ProductPage extends ConsumerWidget {
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: FutureBuilder(
-            future: productInfo,
-            builder: (context, snapshot) {
-              var loadingProduct = product;
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                if (loadingProduct != null) {
-                  return LoadingProductPage(product: loadingProduct);
-                }
-                return const Center(child: CircularProgressIndicator());
-              }
-              if (snapshot.hasError) {
-                if (loadingProduct != null) {
-                  return LoadingProductPage(product: loadingProduct);
-                }
-                return const Center(child: Text('Ошибка загрузки данных'));
-              }
-              final loadedProductInfo = snapshot.data;
-              if (loadedProductInfo == null) {
-                if (loadingProduct != null) {
-                  return LoadingProductPage(product: loadingProduct);
-                }
-              } else {
-                return LoadedProductPage(productInfo: loadedProductInfo);
-              }
-              return const Center(child: Text('Ошибка загрузки данных'));
-            },
-          ),
+          child: CustomScrollView(slivers: [
+            SliverToBoxAdapter(
+              child: Column(
+                children: [
+                  FutureBuilder(
+                    future: productInfo,
+                    builder: (context, snapshot) {
+                      var loadingProduct = product;
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        if (loadingProduct != null) {
+                          return StaticPart(
+                              image: loadingProduct.picture,
+                              productIndex: loadingProduct.id,
+                              name: loadingProduct.name,
+                              price: loadingProduct.price,
+                              oldPrice: loadingProduct.oldPrice ?? '0');
+                        }
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                      if (snapshot.hasError) {
+                        return const Center(
+                            child: Text('Ошибка загрузки данных'));
+                      }
+                      final loadedProductInfo = snapshot.data;
+                      if (loadedProductInfo != null) {
+                        return StaticPart(
+                            image: loadedProductInfo.picture,
+                            productIndex: loadedProductInfo.id,
+                            name: loadedProductInfo.name,
+                            price: loadedProductInfo.price,
+                            oldPrice: loadedProductInfo.oldPrice ?? '0');
+                      }
+                      return const Center(
+                          child: Text('Ошибка загрузки данных'));
+                    },
+                  ),
+                  FutureBuilder(
+                    future: productInfo,
+                    builder: (context, snapshot) {
+                      final loadedProductInfo = snapshot.data;
+                      if (loadedProductInfo != null) {
+                        return LoadedProductPage(
+                          brand: loadedProductInfo.brand,
+                          description: loadedProductInfo.description,
+                        );
+                      }
+                      return Container();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ]),
         ),
       ),
     );
@@ -89,33 +116,37 @@ class ProductPageImage extends StatelessWidget {
   }
 }
 
-class LoadedProductPage extends ConsumerWidget {
-  const LoadedProductPage({
-    Key? key,
-    required this.productInfo,
-  }) : super(key: key);
+class StaticPart extends ConsumerWidget {
+  const StaticPart(
+      {required this.image,
+      required this.productIndex,
+      required this.name,
+      required this.price,
+      required this.oldPrice,
+      Key? key})
+      : super(key: key);
 
-  final ProductInfo productInfo;
+  final String image;
+  final int productIndex;
+  final String name;
+  final String price;
+  final String oldPrice;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    int productIndex = productInfo.id;
     ProductCount? productInCart =
         ref.watch(cartProvider)?.products[productIndex];
     var stateManager = ref.read(appStateManagerProvider);
-    return ListView(
+    return Column(
       children: [
         AspectRatio(
           aspectRatio: 1,
-          child: CachedNetworkImage(
-            imageUrl: productInfo.picture,
-            placeholder: (context, url) => const CircularProgressIndicator(),
-            errorWidget: (context, url, error) => const Icon(Icons.error),
-            fit: BoxFit.fitWidth,
+          child: ProductPageImage(
+            imageUrl: image,
           ),
         ),
         Text(
-          productInfo.name ?? '',
+          name,
           style: const TextStyle(
             fontSize: 20,
           ),
@@ -126,7 +157,7 @@ class LoadedProductPage extends ConsumerWidget {
         Row(
           children: [
             Text(
-              '${getFormatterString(double.parse(productInfo.price))} ₽',
+              '${getFormatterString(double.parse(price))} ₽',
               style: const TextStyle(
                 fontSize: 18,
               ),
@@ -135,7 +166,7 @@ class LoadedProductPage extends ConsumerWidget {
               width: 24,
             ),
             Text(
-              '${getFormatterString(double.parse(productInfo.oldPrice ?? '0'))} ₽',
+              oldPrice != '0' ? '${getFormatterString(double.parse(oldPrice))} ₽' : '',
               style: const TextStyle(
                   fontSize: 18, decoration: TextDecoration.lineThrough),
             ),
@@ -202,6 +233,90 @@ class LoadedProductPage extends ConsumerWidget {
   }
 }
 
+class LoadedProductPage extends ConsumerWidget {
+  const LoadedProductPage({
+    required this.description,
+    required this.brand,
+    Key? key,
+  }) : super(key: key);
+
+  final String description;
+  final String brand;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(
+          height: 32,
+        ),
+        const SizedBox(
+          height: 32,
+          child: GreyDivider(
+            indent: 0,
+            endIndent: 0,
+          ),
+        ),
+        const Text(
+          'Описание и характеристики',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        DescriptionRow(title: 'Описание:', text: description),
+        DescriptionRow(title: 'Бренд:', text: brand),
+        const SizedBox(
+          height: 32,
+        )
+      ],
+    );
+  }
+}
+
+class DescriptionRow extends StatelessWidget {
+  const DescriptionRow({
+    super.key,
+    required this.title,
+    required this.text,
+  });
+
+  final String title;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              flex: 4,
+              child: Text(title),
+            ),
+            Expanded(
+              flex: 6,
+              child: Text(text),
+            ),
+          ],
+        ),
+        const SizedBox(
+          height: 16,
+          child: GreyDivider(
+            endIndent: 0,
+            indent: 0,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class AddToCartButton extends ConsumerWidget {
   const AddToCartButton({
     super.key,
@@ -234,41 +349,3 @@ class AddToCartButton extends ConsumerWidget {
   }
 }
 
-class LoadingProductPage extends ConsumerWidget {
-  const LoadingProductPage({Key? key, required this.product}) : super(key: key);
-
-  final Product product;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return ListView(
-      children: [
-        AspectRatio(
-          aspectRatio: 1,
-          child: CachedNetworkImage(
-            imageUrl: product.picture,
-            placeholder: (context, url) => const CircularProgressIndicator(),
-            errorWidget: (context, url, error) => const Icon(Icons.error),
-            fit: BoxFit.fitWidth,
-          ),
-        ),
-        Text(
-          product.name ?? '',
-          style: const TextStyle(
-            fontSize: 20,
-          ),
-        ),
-        Row(
-          children: [
-            Text(product.price),
-            Text(
-              product.oldPrice ?? '',
-              style: const TextStyle(
-                  fontSize: 18, decoration: TextDecoration.lineThrough),
-            ),
-          ],
-        )
-      ],
-    );
-  }
-}

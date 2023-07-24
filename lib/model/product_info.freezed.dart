@@ -27,6 +27,7 @@ mixin _$ProductInfo {
   @JsonKey(name: 'old_price')
   String? get oldPrice => throw _privateConstructorUsedError;
   String get brand => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get article => throw _privateConstructorUsedError;
   bool get available => throw _privateConstructorUsedError;
@@ -60,6 +61,7 @@ abstract class $ProductInfoCopyWith<$Res> {
       String price,
       @JsonKey(name: 'old_price') String? oldPrice,
       String brand,
+      String description,
       String name,
       String article,
       bool available,
@@ -91,6 +93,7 @@ class _$ProductInfoCopyWithImpl<$Res, $Val extends ProductInfo>
     Object? price = null,
     Object? oldPrice = freezed,
     Object? brand = null,
+    Object? description = null,
     Object? name = null,
     Object? article = null,
     Object? available = null,
@@ -126,6 +129,10 @@ class _$ProductInfoCopyWithImpl<$Res, $Val extends ProductInfo>
       brand: null == brand
           ? _value.brand
           : brand // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
       name: null == name
           ? _value.name
@@ -186,6 +193,7 @@ abstract class _$$_ProductInfoCopyWith<$Res>
       String price,
       @JsonKey(name: 'old_price') String? oldPrice,
       String brand,
+      String description,
       String name,
       String article,
       bool available,
@@ -215,6 +223,7 @@ class __$$_ProductInfoCopyWithImpl<$Res>
     Object? price = null,
     Object? oldPrice = freezed,
     Object? brand = null,
+    Object? description = null,
     Object? name = null,
     Object? article = null,
     Object? available = null,
@@ -250,6 +259,10 @@ class __$$_ProductInfoCopyWithImpl<$Res>
       brand: null == brand
           ? _value.brand
           : brand // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
       name: null == name
           ? _value.name
@@ -305,6 +318,7 @@ class _$_ProductInfo implements _ProductInfo {
       required this.price,
       @JsonKey(name: 'old_price') required this.oldPrice,
       required this.brand,
+      required this.description,
       required this.name,
       required this.article,
       required this.available,
@@ -341,6 +355,8 @@ class _$_ProductInfo implements _ProductInfo {
   @override
   final String brand;
   @override
+  final String description;
+  @override
   final String name;
   @override
   final String article;
@@ -371,7 +387,7 @@ class _$_ProductInfo implements _ProductInfo {
 
   @override
   String toString() {
-    return 'ProductInfo(id: $id, picture: $picture, categories: $categories, price: $price, oldPrice: $oldPrice, brand: $brand, name: $name, article: $article, available: $available, discount: $discount, sort: $sort, rating: $rating, reviewsCount: $reviewsCount, needBuyToWholesale: $needBuyToWholesale, wholesaleDiscount: $wholesaleDiscount, pictures: $pictures)';
+    return 'ProductInfo(id: $id, picture: $picture, categories: $categories, price: $price, oldPrice: $oldPrice, brand: $brand, description: $description, name: $name, article: $article, available: $available, discount: $discount, sort: $sort, rating: $rating, reviewsCount: $reviewsCount, needBuyToWholesale: $needBuyToWholesale, wholesaleDiscount: $wholesaleDiscount, pictures: $pictures)';
   }
 
   @override
@@ -387,6 +403,8 @@ class _$_ProductInfo implements _ProductInfo {
             (identical(other.oldPrice, oldPrice) ||
                 other.oldPrice == oldPrice) &&
             (identical(other.brand, brand) || other.brand == brand) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.article, article) || other.article == article) &&
             (identical(other.available, available) ||
@@ -414,6 +432,7 @@ class _$_ProductInfo implements _ProductInfo {
       price,
       oldPrice,
       brand,
+      description,
       name,
       article,
       available,
@@ -447,6 +466,7 @@ abstract class _ProductInfo implements ProductInfo {
       required final String price,
       @JsonKey(name: 'old_price') required final String? oldPrice,
       required final String brand,
+      required final String description,
       required final String name,
       required final String article,
       required final bool available,
@@ -476,6 +496,8 @@ abstract class _ProductInfo implements ProductInfo {
   String? get oldPrice;
   @override
   String get brand;
+  @override
+  String get description;
   @override
   String get name;
   @override

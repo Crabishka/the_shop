@@ -16,6 +16,7 @@ class ProductInfo with _$ProductInfo {
     @JsonKey(name: 'old_price')
     required String? oldPrice,
     required String brand,
+    required String description,
     required String name,
     required String article,
     required bool available,
