@@ -122,7 +122,7 @@ class AuthCartPage extends ConsumerWidget {
                       width: double.infinity,
                       child: AsyncElevatedButton(
                         callback: () async {
-                          AutoRouter.of(context).navigate(OrderRoute());
+                          AutoRouter.of(context).navigate(const OrderRoute());
                         },
                         text: 'ОФОРМИТЬ ЗАКАЗ',
                       ),

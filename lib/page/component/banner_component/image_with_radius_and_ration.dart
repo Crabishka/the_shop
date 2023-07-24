@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ImageWithRadiusAndRation extends StatelessWidget {
@@ -18,10 +19,13 @@ class ImageWithRadiusAndRation extends StatelessWidget {
       aspectRatio: aspectRatio,
       child: ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(radius)),
-        child: Image.network(
-          image,
+        child: CachedNetworkImage(
+          imageUrl: image,
+          placeholder: (context, url) => Center(child: const CircularProgressIndicator()),
+          errorWidget: (context, url, error) => const Icon(Icons.error),
+          width: 40,
+          height: 40,
           fit: BoxFit.fitWidth,
-          alignment: Alignment.center,
         ),
       ),
     );

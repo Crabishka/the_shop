@@ -9,8 +9,6 @@ import 'package:the_shop_app/page/component/common/async_elevated_button.dart';
 import 'package:the_shop_app/page/component/common/farm_add_bar.dart';
 import 'package:the_shop_app/page/component/common/grey_divider.dart';
 import 'package:the_shop_app/page/component/common/input_text_form_fields.dart';
-import 'package:the_shop_app/page/component/profile_component/input_text_field.dart';
-import 'package:the_shop_app/page/component/profile_component/phone_number_text_form_field.dart';
 import 'package:the_shop_app/provider/di_providers.dart';
 import 'package:the_shop_app/provider/manager/app_provider_service.dart';
 import 'package:the_shop_app/provider/state/cart_state_provider.dart';
@@ -32,7 +30,7 @@ class _OrderPageState extends ConsumerState<OrderPage> {
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   ProfileInfo? profileInfo;
-  final ValueNotifier<PaymentType?> _notifier = ValueNotifier(null);
+  final ValueNotifier<PaymentType?> _paymentTypeNotifier = ValueNotifier(null);
 
   @override
   void initState() {
@@ -40,7 +38,7 @@ class _OrderPageState extends ConsumerState<OrderPage> {
     profileInfo = ref.read(profileProvider);
     _emailController.text = profileInfo?.email ?? '';
     _nameController.text = profileInfo?.firstName ?? '';
-    _phoneController.text = '+7';
+    _phoneController.text = profileInfo?.phone ?? '+7';
   }
 
   @override
@@ -48,7 +46,7 @@ class _OrderPageState extends ConsumerState<OrderPage> {
     _emailController.dispose();
     _phoneController.dispose();
     _nameController.dispose();
-    _notifier.dispose();
+    _paymentTypeNotifier.dispose();
     super.dispose();
   }
 
@@ -124,7 +122,7 @@ class _OrderPageState extends ConsumerState<OrderPage> {
                 ],
               ),
               FuturePaymentBuilder(
-                  paymentTypes: paymentTypes, notifier: _notifier),
+                  paymentTypes: paymentTypes, notifier: _paymentTypeNotifier),
               SliverList.list(
                 children: [
                   const SizedBox(
@@ -165,7 +163,7 @@ class _OrderPageState extends ConsumerState<OrderPage> {
                     width: double.infinity,
                     child: AsyncElevatedButton(
                       callback: () async {
-                        var checkedPayment = _notifier.value;
+                        var checkedPayment = _paymentTypeNotifier.value;
                         if (_formKey.currentState!.validate() &&
                             checkedPayment != null) {
                           if (cart == null) {

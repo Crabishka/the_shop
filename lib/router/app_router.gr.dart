@@ -133,6 +133,17 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const OrderPage(),
       );
     },
+    ProductRoute.name: (routeData) {
+      final args = routeData.argsAs<ProductRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: ProductPage(
+          key: args.key,
+          id: args.id,
+          product: args.product,
+        ),
+      );
+    },
   };
 }
 
@@ -468,4 +479,47 @@ class OrderRoute extends PageRouteInfo<void> {
   static const String name = 'OrderRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [ProductPage]
+class ProductRoute extends PageRouteInfo<ProductRouteArgs> {
+  ProductRoute({
+    Key? key,
+    required int id,
+    Product? product,
+    List<PageRouteInfo>? children,
+  }) : super(
+          ProductRoute.name,
+          args: ProductRouteArgs(
+            key: key,
+            id: id,
+            product: product,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'ProductRoute';
+
+  static const PageInfo<ProductRouteArgs> page =
+      PageInfo<ProductRouteArgs>(name);
+}
+
+class ProductRouteArgs {
+  const ProductRouteArgs({
+    this.key,
+    required this.id,
+    this.product,
+  });
+
+  final Key? key;
+
+  final int id;
+
+  final Product? product;
+
+  @override
+  String toString() {
+    return 'ProductRouteArgs{key: $key, id: $id, product: $product}';
+  }
 }

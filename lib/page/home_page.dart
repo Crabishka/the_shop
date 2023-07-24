@@ -10,6 +10,7 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AutoTabsRouter(
+      navigatorObservers: () => [HeroController()],
       routes: const [
         WindowRoute(),
         CategoryRoute(),

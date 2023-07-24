@@ -18,8 +18,6 @@ class ChangeCountButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: iconSize,
-        height: iconSize,
         color: color,
         child: Center(
           child: Text(

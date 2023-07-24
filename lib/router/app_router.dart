@@ -1,10 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:the_shop_app/model/category.dart';
+import 'package:the_shop_app/model/product.dart';
 import 'package:the_shop_app/page/cart/cart_page.dart';
 import 'package:the_shop_app/page/cart/order_page.dart';
 import 'package:the_shop_app/page/catalog/catalog_page.dart';
 import 'package:the_shop_app/page/catalog/category_page.dart';
+import 'package:the_shop_app/page/catalog/product_page.dart';
+import 'package:the_shop_app/page/component/catalog_component/product_card.dart';
 import 'package:the_shop_app/page/favourities_page.dart';
 import 'package:the_shop_app/page/home_page.dart';
 import 'package:the_shop_app/page/profile/code_validation_page.dart';
@@ -23,6 +26,7 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: RegistrationRoute.page),
         AutoRoute(page: CodeValidationRoute.page),
         AutoRoute(page: AuthRoute.page),
+        AutoRoute(page: OrderRoute.page),
         AutoRoute(
           path: '/',
           page: HomeRoute.page,
@@ -40,13 +44,13 @@ class AppRouter extends _$AppRouter {
                 AutoRoute(page: CategoryRoute.page),
                 AutoRoute(page: SubcategoriesRoute.page),
                 AutoRoute(page: CatalogRoute.page),
+                AutoRoute(page: ProductRoute.page),
               ],
             ),
             AutoRoute(
               page: CartTab.page,
               children: [
                 AutoRoute(page: CartRoute.page),
-                AutoRoute(page: OrderRoute.page),
               ],
             ),
             AutoRoute(

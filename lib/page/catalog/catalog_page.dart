@@ -11,6 +11,8 @@ import 'package:the_shop_app/provider/manager/app_provider_service.dart';
 import 'package:the_shop_app/provider/state/cart_state_provider.dart';
 import 'package:the_shop_app/router/app_router.dart';
 
+import '../component/catalog_component/product_card.dart';
+
 @RoutePage()
 class CatalogPage extends ConsumerWidget {
   const CatalogPage({required this.categoryId, Key? key}) : super(key: key);
@@ -60,148 +62,6 @@ class CatalogPage extends ConsumerWidget {
   }
 }
 
-class ProductCard extends ConsumerWidget {
-  const ProductCard({
-    super.key,
-    required this.product,
-  });
 
-  final Product product;
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Flexible(
-          child: Center(
-            child: Image.network(
-              product.picture,
-              fit: BoxFit.fill,
-            ),
-          ),
-        ),
-        Text(
-          product.name,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '${double.parse(product.price).truncateToDouble().toString()} ₽',
-                  style: const TextStyle(
-                    fontSize: 14,
-                  ),
-                ),
-                Text(
-                  product.oldPrice != null ? '${product.oldPrice} ₽' : '',
-                  style: const TextStyle(
-                    fontSize: 10,
-                    decoration: TextDecoration.lineThrough,
-                  ),
-                ),
-              ],
-            ),
-            ProductCardButton(
-              product: product,
-            )
-          ],
-        ),
-      ],
-    );
-  }
-}
 
-class ProductCardButton extends ConsumerWidget {
-  const ProductCardButton({
-    super.key,
-    required this.product,
-  });
-
-  final Product product;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    var cartState = ref.watch(cartProvider);
-    int count = cartState?.products[product.id]?.count ?? 0;
-    return ElevatedButton(
-      onPressed: () async {
-        var token = ref.read(tokenRepositoryProvider)?.accessToken;
-        if (token == null) {
-          buildErrorShowModalBottomSheet(
-              context, 'Авторизуйтесь, чтобы добавить товар.');
-          return;
-        }
-        ref
-            .read(appStateManagerProvider)
-            .addToCart(ref, product.id)
-            .catchError((e) {
-          if (e == '401') {
-            buildErrorShowModalBottomSheet(
-                context, 'Авторизуйтесь, чтобы добавить товар.');
-          }
-        });
-      },
-      style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.zero,
-        shape: const CircleBorder(),
-      ),
-      child: count == 0
-          ? const Icon(
-              Icons.shopping_bag_outlined,
-              size: 32,
-            )
-          : Text(
-              count.toString(),
-              style: const TextStyle(fontSize: 14),
-            ),
-    );
-  }
-
-  Future<dynamic> buildErrorShowModalBottomSheet(
-      BuildContext context, String text) {
-    return showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return Container(
-          height: 200,
-          width: double.infinity,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 52,
-                ),
-                Text(
-                  text,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                SizedBox(
-                  width: double.infinity,
-                  height: 52,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      context.router.navigate(const AuthRoute());
-                    },
-                    child: const Text('ВХОД / ЗАРЕГИСТРИРОВАТЬСЯ'),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-}

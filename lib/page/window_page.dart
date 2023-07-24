@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:the_shop_app/page/component/banner_component/main_banner.dart';
+import 'package:the_shop_app/page/component/common/farm_add_bar.dart';
 import 'package:the_shop_app/provider/di_providers.dart';
 
 @RoutePage()
@@ -12,8 +13,8 @@ class WindowPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final banners = ref.read(bannerRepositoryProvider).getBanners();
     return Scaffold(
-      appBar: AppBar(
-        title: const Center(child: Text('The Shop')),
+      appBar: const FarmAppBar(
+        title: 'The Shop',
       ),
       body: SafeArea(
         child: FutureBuilder(

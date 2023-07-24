@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:the_shop_app/model/category.dart';
 import 'package:the_shop_app/router/app_router.dart';
@@ -19,10 +20,12 @@ class SubcategoryCard extends StatelessWidget {
       },
       child: Row(
         children: [
-          Image.network(
-            category.picture,
-            width: 32,
-            height: 32,
+          CachedNetworkImage(
+            imageUrl: category.picture,
+            placeholder: (context, url) => const CircularProgressIndicator(),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
+            width: 40,
+            height: 40,
             fit: BoxFit.fill,
           ),
           const SizedBox(

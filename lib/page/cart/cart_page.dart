@@ -18,9 +18,14 @@ class CartPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var token = ref.watch(tokenRepositoryProvider)?.accessToken;
+    var cart = ref.watch(cartProvider);
+    bool isCartExist = true;
+    if (cart == null || cart.products.isEmpty){
+      isCartExist = false;
+    }
     return Scaffold(
       appBar: const FarmAppBar(title: 'Корзина'),
-      body: token == null ? const NonAuthCartPage() : const AuthCartPage(),
+      body: token != null && isCartExist ? const AuthCartPage() : const NonAuthCartPage(),
     );
   }
 }

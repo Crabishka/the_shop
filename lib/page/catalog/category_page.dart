@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:the_shop_app/model/category.dart';
 import 'package:the_shop_app/page/component/catalog_component/category_card.dart';
+import 'package:the_shop_app/page/component/common/farm_add_bar.dart';
 import 'package:the_shop_app/page/component/common/grey_divider.dart';
 import 'package:the_shop_app/provider/di_providers.dart';
 import 'package:the_shop_app/router/app_router.dart';
@@ -15,10 +16,8 @@ class CategoryPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final categories = ref.read(categoryRepositoryProvider).getCategories();
     return Scaffold(
-      appBar: AppBar(
-        title: const Center(
-          child: Text('Категории'),
-        ),
+      appBar: const FarmAppBar(
+        title: 'Категории',
       ),
       body: SafeArea(
         child: FutureBuilder(

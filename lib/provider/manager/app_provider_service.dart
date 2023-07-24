@@ -1,9 +1,13 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:the_shop_app/data/dto/response/token_dto.dart';
+import 'package:the_shop_app/data/utils.dart';
 import 'package:the_shop_app/model/cart_info.dart';
 import 'package:the_shop_app/provider/di_providers.dart';
 import 'package:the_shop_app/provider/state/cart_state_provider.dart';
 import 'package:the_shop_app/provider/state/profile_state_provider.dart';
+import 'package:the_shop_app/router/app_router.dart';
 
 /// некоторые функции, например login/logout задействуют сразу несколько состояний
 /// например logout должен очистить список избранных, корзину, jwt токены
@@ -41,25 +45,37 @@ class AppStateManager {
   }
 
   Future<void> addToCart(WidgetRef ref, int productId) async {
-    var dto = await ref
+    // можно сделать проверку на наличие токена, чтобы UI был отзывчивее
+    ref
         .read(cartRepositoryProvider)
-        .addProductToCart(productId: productId);
-    ref.read(cartProvider.notifier).setCart(dto);
+        .addProductToCart(productId: productId)
+        .catchError((e) {
+      if (e == '401') {
+        buildErrorShowModalBottomSheet(
+            ref.context, 'Авторизуйтесь, чтобы добавить товар.');
+      }
+    }).then((value) {
+      ref.read(cartProvider.notifier).setCart(value);
+    });
   }
 
   Future<void> setCountProductInCart(
       WidgetRef ref, int productId, int newCount) async {
-    var dto = await ref
+    ref
         .read(cartRepositoryProvider)
-        .setProductCount(productId: productId, count: newCount);
-    ref.read(cartProvider.notifier).setCart(dto);
+        .setProductCount(productId: productId, count: newCount)
+        .then((value) {
+      ref.read(cartProvider.notifier).setCart(value);
+    });
   }
 
   Future<void> removeProductFromCart(WidgetRef ref, int productId) async {
-    var dto = await ref
+    ref
         .read(cartRepositoryProvider)
-        .deleteProductFromCart(productId: productId);
-    ref.read(cartProvider.notifier).setCart(dto);
+        .deleteProductFromCart(productId: productId)
+        .then((value) {
+      ref.read(cartProvider.notifier).setCart(value);
+    });
   }
 
   Future<void> makeOrder(
@@ -71,15 +87,61 @@ class AppStateManager {
     required String paymentId,
     required String paymentType,
   }) async {
-    await ref.read(orderRepositoryProvider).createOrder(
-        cartInfo: cartInfo,
-        userName: userName,
-        userPhone: userPhone,
-        userEmail: userEmail,
-        paymentId: paymentId,
-        paymentType: paymentType);
-    ref.read(cartProvider.notifier).setCart(null);
+    ref
+        .read(orderRepositoryProvider)
+        .createOrder(
+            cartInfo: cartInfo,
+            userName: userName,
+            userPhone: userPhone,
+            userEmail: userEmail,
+            paymentId: paymentId,
+            paymentType: paymentType)
+        .then((value) {
+      ref.read(cartProvider.notifier).setCart(null);
+    });
   }
+}
+
+Future<dynamic> buildErrorShowModalBottomSheet(
+    BuildContext context, String text) {
+  return showModalBottomSheet(
+    context: context,
+    builder: (context) {
+      return Container(
+        height: 200,
+        width: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 52,
+              ),
+              Text(
+                text,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(
+                height: 24,
+              ),
+              SizedBox(
+                width: double.infinity,
+                height: 52,
+                child: ElevatedButton(
+                  onPressed: () {
+                    context.router.navigate(const AuthRoute());
+                  },
+                  child: const Text('ВХОД / ЗАРЕГИСТРИРОВАТЬСЯ'),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    },
+  );
 }
 
 final appStateManagerProvider = Provider<AppStateManager>((ref) {

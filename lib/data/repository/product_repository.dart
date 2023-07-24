@@ -5,6 +5,7 @@ import 'package:the_shop_app/data/dto/response/pageable_dto.dart';
 
 import 'package:the_shop_app/model/category.dart';
 import 'package:the_shop_app/model/product.dart';
+import 'package:the_shop_app/model/product_info.dart';
 
 class ProductRepository {
   final ProductClient _api;
@@ -14,4 +15,9 @@ class ProductRepository {
   Future<PageableDto<Product>> getCategories({required FilterProductDto dto}) {
     return _api.catalogProducts(dto);
   }
+
+  Future<ProductInfo> getProductInfo({required int productId}) {
+    return _api.getProduct(productId);
+  }
 }
+

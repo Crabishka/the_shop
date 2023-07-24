@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:the_shop_app/model/category.dart';
 import 'package:the_shop_app/router/app_router.dart';
@@ -23,22 +24,15 @@ class CategoryCard extends StatelessWidget {
       },
       child: Row(
         children: [
-          Image.network(
-            category.picture,
-            loadingBuilder: (context, child, loadingProgress) {
-              if (loadingProgress == null) return child;
-              return const SizedBox(
-                width: 100,
-                height: 100,
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              );
-            },
+          CachedNetworkImage(
+            imageUrl : category.picture,
             width: 100,
             height: 100,
+            placeholder: (context, url) => const CircularProgressIndicator(),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
             fit: BoxFit.fill,
           ),
+
           const SizedBox(
             width: 24,
           ),

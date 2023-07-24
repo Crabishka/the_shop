@@ -94,28 +94,36 @@ class CartProductCard extends ConsumerWidget {
                       ),
                       Row(
                         children: [
-                          ChangeCountButton(
-                            color: count > 1
-                                ? Theme.of(context).primaryColor
-                                : Colors.grey,
-                            text: '-',
-                            onTap: count > 1
-                                ? () {
-                                    stateManager.setCountProductInCart(
-                                        ref, product.id, count - 1);
-                                  }
-                                : () {},
+                          SizedBox(
+                            height: iconSize,
+                            width: iconSize,
+                            child: ChangeCountButton(
+                              color: count > 1
+                                  ? Theme.of(context).primaryColor
+                                  : Colors.grey,
+                              text: '-',
+                              onTap: count > 1
+                                  ? () {
+                                      stateManager.setCountProductInCart(
+                                          ref, product.id, count - 1);
+                                    }
+                                  : () {},
+                            ),
                           ),
                           SizedBox(
                               width: iconSize,
                               height: iconSize,
                               child: Center(child: Text(count.toString()))),
-                          ChangeCountButton(
-                              text: '+',
-                              color: Theme.of(context).primaryColor,
-                              onTap: () {
-                                stateManager.addToCart(ref, product.id);
-                              })
+                          SizedBox(
+                            height: iconSize,
+                            width: iconSize,
+                            child: ChangeCountButton(
+                                text: '+',
+                                color: Theme.of(context).primaryColor,
+                                onTap: () {
+                                  stateManager.addToCart(ref, product.id);
+                                }),
+                          )
                         ],
                       ),
                     ],
