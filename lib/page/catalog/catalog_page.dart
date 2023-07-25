@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:the_shop_app/data/dto/request/filter_product_dto.dart';
 import 'package:the_shop_app/model/product.dart';
+import 'package:the_shop_app/page/component/catalog_component/pagination_list.dart';
 import 'package:the_shop_app/page/component/common/farm_add_bar.dart';
 
 import 'package:the_shop_app/provider/di_providers.dart';
@@ -61,7 +62,3 @@ class CatalogPage extends ConsumerWidget {
     );
   }
 }
-
-
-
-

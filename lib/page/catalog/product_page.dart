@@ -6,7 +6,10 @@ import 'package:the_shop_app/data/dto/response/cart_dto.dart';
 import 'package:the_shop_app/data/utils.dart';
 import 'package:the_shop_app/model/product.dart';
 import 'package:the_shop_app/model/product_info.dart';
+import 'package:the_shop_app/page/component/cart_component/add_to_cart_button.dart';
 import 'package:the_shop_app/page/component/cart_component/change_count_button.dart';
+import 'package:the_shop_app/page/component/cart_component/description_row.dart';
+import 'package:the_shop_app/page/component/cart_component/product_page_image.dart';
 import 'package:the_shop_app/page/component/common/farm_add_bar.dart';
 import 'package:the_shop_app/page/component/common/grey_divider.dart';
 import 'package:the_shop_app/page/component/const_param.dart';
@@ -26,20 +29,20 @@ class ProductPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var productInfo =
         ref.read(productRepositoryProvider).getProductInfo(productId: id);
-    return Hero(
-      tag: product?.id ?? '',
-      child: Scaffold(
-        appBar: FarmAppBar(
-          title: product?.name ?? 'Карточка продукта',
-          isBack: true,
-        ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: CustomScrollView(slivers: [
-            SliverToBoxAdapter(
-              child: Column(
-                children: [
-                  FutureBuilder(
+    return Scaffold(
+      appBar: FarmAppBar(
+        title: product?.name ?? 'Карточка продукта',
+        isBack: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: CustomScrollView(slivers: [
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                Hero(
+                  tag: product?.id ?? '',
+                  child: FutureBuilder(
                     future: productInfo,
                     builder: (context, snapshot) {
                       var loadingProduct = product;
@@ -71,46 +74,24 @@ class ProductPage extends ConsumerWidget {
                           child: Text('Ошибка загрузки данных'));
                     },
                   ),
-                  FutureBuilder(
-                    future: productInfo,
-                    builder: (context, snapshot) {
-                      final loadedProductInfo = snapshot.data;
-                      if (loadedProductInfo != null) {
-                        return LoadedProductPage(
-                          brand: loadedProductInfo.brand,
-                          description: loadedProductInfo.description,
-                        );
-                      }
-                      return Container();
-                    },
-                  ),
-                ],
-              ),
+                ),
+                FutureBuilder(
+                  future: productInfo,
+                  builder: (context, snapshot) {
+                    final loadedProductInfo = snapshot.data;
+                    if (loadedProductInfo != null) {
+                      return LoadedProductPage(
+                        brand: loadedProductInfo.brand,
+                        description: loadedProductInfo.description,
+                      );
+                    }
+                    return Container();
+                  },
+                ),
+              ],
             ),
-          ]),
-        ),
-      ),
-    );
-  }
-}
-
-class ProductPageImage extends StatelessWidget {
-  const ProductPageImage({
-    super.key,
-    required this.imageUrl,
-  });
-
-  final String imageUrl;
-
-  @override
-  Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1,
-      child: CachedNetworkImage(
-        imageUrl: imageUrl,
-        placeholder: (context, url) => const CircularProgressIndicator(),
-        errorWidget: (context, url, error) => const Icon(Icons.error),
-        fit: BoxFit.fitWidth,
+          ),
+        ]),
       ),
     );
   }
@@ -166,7 +147,9 @@ class StaticPart extends ConsumerWidget {
               width: 24,
             ),
             Text(
-              oldPrice != '0' ? '${getFormatterString(double.parse(oldPrice))} ₽' : '',
+              oldPrice != '0'
+                  ? '${getFormatterString(double.parse(oldPrice))} ₽'
+                  : '',
               style: const TextStyle(
                   fontSize: 18, decoration: TextDecoration.lineThrough),
             ),
@@ -277,75 +260,3 @@ class LoadedProductPage extends ConsumerWidget {
     );
   }
 }
-
-class DescriptionRow extends StatelessWidget {
-  const DescriptionRow({
-    super.key,
-    required this.title,
-    required this.text,
-  });
-
-  final String title;
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              flex: 4,
-              child: Text(title),
-            ),
-            Expanded(
-              flex: 6,
-              child: Text(text),
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 16,
-          child: GreyDivider(
-            endIndent: 0,
-            indent: 0,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class AddToCartButton extends ConsumerWidget {
-  const AddToCartButton({
-    super.key,
-    required this.stateManager,
-    required this.productIndex,
-  });
-
-  final AppStateManager stateManager;
-  final int productIndex;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return SizedBox(
-      height: 52,
-      child: ElevatedButton(
-          onPressed: () {
-            stateManager.addToCart(ref, productIndex);
-          },
-          child: const Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.shopping_basket_outlined),
-              SizedBox(
-                width: 8,
-              ),
-              Text(' В КОРЗИНУ'),
-            ],
-          )),
-    );
-  }
-}
-

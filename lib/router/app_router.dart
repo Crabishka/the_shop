@@ -2,20 +2,20 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:the_shop_app/model/category.dart';
 import 'package:the_shop_app/model/product.dart';
+import 'package:the_shop_app/page/banner/window_page.dart';
 import 'package:the_shop_app/page/cart/cart_page.dart';
 import 'package:the_shop_app/page/cart/order_page.dart';
 import 'package:the_shop_app/page/catalog/catalog_page.dart';
 import 'package:the_shop_app/page/catalog/category_page.dart';
 import 'package:the_shop_app/page/catalog/product_page.dart';
-import 'package:the_shop_app/page/component/catalog_component/product_card.dart';
-import 'package:the_shop_app/page/favourities_page.dart';
+import 'package:the_shop_app/page/favourite/favourities_page.dart';
 import 'package:the_shop_app/page/home_page.dart';
 import 'package:the_shop_app/page/profile/code_validation_page.dart';
 import 'package:the_shop_app/page/profile/auth_page.dart';
 import 'package:the_shop_app/page/catalog/subcategories_page.dart';
 import 'package:the_shop_app/page/profile/profile_page.dart';
 import 'package:the_shop_app/page/profile/registration_page.dart';
-import 'package:the_shop_app/page/window_page.dart';
+
 
 part 'app_router.gr.dart';
 

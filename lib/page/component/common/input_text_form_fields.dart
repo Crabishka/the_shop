@@ -45,10 +45,10 @@ class InputTextFormFieldForPhone extends StatelessWidget {
       controller: _phoneController,
       textHint: '+7 (000) 000-00-00',
       validator: (value) {
-        print(value);
         if (value == null || value.isEmpty) {
           return 'Пожалуйста, введите номер телефона';
         }
+        // TODO пофиксить заменив на нормальную регулярку
         if (value.length < phoneNumberLengthWithDecoration) {
           return 'Некорректный номер телефона';
         }

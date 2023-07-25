@@ -178,17 +178,7 @@ class _OrderPageState extends ConsumerState<OrderPage> {
                                   userPhone: _phoneController.text,
                                   userEmail: _emailController.text,
                                   paymentId: checkedPayment.id,
-                                  paymentType: checkedPayment.type)
-                              .then((value) {
-                            AutoRouter.of(context).pop();
-                          }).catchError((e) {
-
-                            if (e == '400') {
-                              showSnackBar(context, 'Корзина Пуста!');
-                              return;
-                            }
-                            showSnackBar(context, 'Непредвиденная ошибка');
-                          });
+                                  paymentType: checkedPayment.type);
                         } else {
                           showSnackBar(context,
                               'Ошибка оформления формы! Проверьте корректность данных.');

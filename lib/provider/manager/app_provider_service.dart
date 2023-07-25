@@ -12,7 +12,7 @@ import 'package:the_shop_app/router/app_router.dart';
 /// некоторые функции, например login/logout задействуют сразу несколько состояний
 /// например logout должен очистить список избранных, корзину, jwt токены
 /// для таких задач и существует этот класс
-/// ничего не хранит, отвечает только за "оркестрацию"
+/// ничего не хранит, отвечает только за связь с логикой/обработку ошибок
 /// каждый метод принимает WidgetRef для получения нужных состояний (пока непонятно, насколько это плохо)
 class AppStateManager {
   Future<void> onStart(
@@ -49,13 +49,12 @@ class AppStateManager {
     ref
         .read(cartRepositoryProvider)
         .addProductToCart(productId: productId)
+        .then((value) => ref.read(cartProvider.notifier).setCart(value))
         .catchError((e) {
       if (e == '401') {
         buildErrorShowModalBottomSheet(
             ref.context, 'Авторизуйтесь, чтобы добавить товар.');
       }
-    }).then((value) {
-      ref.read(cartProvider.notifier).setCart(value);
     });
   }
 
@@ -98,50 +97,11 @@ class AppStateManager {
             paymentType: paymentType)
         .then((value) {
       ref.read(cartProvider.notifier).setCart(null);
+      AutoRouter.of(ref.context).pop();
+    }).catchError((e) {
+      showSnackBar(ref.context, 'Непредвиденная ошибка');
     });
   }
-}
-
-Future<dynamic> buildErrorShowModalBottomSheet(
-    BuildContext context, String text) {
-  return showModalBottomSheet(
-    context: context,
-    builder: (context) {
-      return Container(
-        height: 200,
-        width: double.infinity,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 52,
-              ),
-              Text(
-                text,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(
-                height: 24,
-              ),
-              SizedBox(
-                width: double.infinity,
-                height: 52,
-                child: ElevatedButton(
-                  onPressed: () {
-                    context.router.navigate(const AuthRoute());
-                  },
-                  child: const Text('ВХОД / ЗАРЕГИСТРИРОВАТЬСЯ'),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    },
-  );
 }
 
 final appStateManagerProvider = Provider<AppStateManager>((ref) {
